@@ -84,7 +84,7 @@
 (global-prettify-symbols-mode t)
 
 ;; Font and Frame Size
-(add-to-list 'default-frame-alist '(height . 35))
+(add-to-list 'default-frame-alist '(height . 40))
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Setting English Font
