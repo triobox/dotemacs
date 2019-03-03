@@ -1,0 +1,15 @@
+elpa*/
+backup/
+auto-save-list
+eshell
+*.elc
+*.eld
+recentf
+*.dat
+*.swp
+*#
+*.backup.el
+places
+emacs-custom
+test/
+anaconda-mode/
