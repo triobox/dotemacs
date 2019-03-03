@@ -13,3 +13,5 @@ places
 emacs-custom
 test/
 anaconda-mode/
+server/
+smex-items
