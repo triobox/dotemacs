@@ -18,6 +18,7 @@
 ;(setq emacs-load-start-time (current-time))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 
 ;; Measure startup time
 (require 'init-benchmarking)
@@ -57,16 +58,15 @@
   (require 'init-utils)
   ;; (require 'init-site-lisp)
   (require 'init-elpa)
-  (require 'init-exec-path)
-
   (require 'init-use-package)
 
+  (require 'init-hydra)
+  (require 'init-exec-path)
   (require 'init-frame-hooks)
   (require 'init-recentf)
   ;; (require 'init-autocomplete)
   (require 'init-company)
   (require 'init-dumb-jump)
-  (require 'init-hydra)
   (require 'init-dired)
 
   (require 'init-calendar)

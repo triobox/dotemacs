@@ -35,14 +35,15 @@
 
         ;; {{ backup repositories
 	;; ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-        ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+        ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
         ;; }}
 
         ;; {{ backup repositories
         ;; ("melpa" . "http://59.111.0.251/elpa/melpa/")
-        ;;("melpa" . "http://mirrors.163.com/elpa/melpa/")
-        ;;("melpa-stable" . "http://mirrors.163.com/elpa/melpa-stable/")
+        ("gnu" . "http://mirrors.163.com/elpa/gnu/")
+        ("melpa" . "http://mirrors.163.com/elpa/melpa/")
+        ("melpa-stable" . "http://mirrors.163.com/elpa/melpa-stable/")
         ;; }}
 
         ;; uncomment below line if you need use GNU ELPA
