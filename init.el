@@ -90,6 +90,7 @@
   (require 'init-workgroups2)
   (require 'init-undotree)
   (require 'init-spelling)
+  (require 'init-epa)
 
   (require 'init-misc)
 

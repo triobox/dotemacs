@@ -231,38 +231,47 @@
 
     ))
 
+;; ------------------------------------------------------------------------
+(use-package org-crypt
+  :ensure nil
+  :config
+  (progn
+    ;; encrypt before save file
+    (org-crypt-use-before-save-magic)
+    ;; set tag of encrypt part
+    (setq org-crypt-tag-matcher "crypt")
+    ;; avoid recursive encrypt sub-items
+    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+    ;; GPG key to use for encryptioV
+    ;; Either the Key ID or set to nil to use symmetric encryption.
+    (setq org-crypt-key nil)
 
-(defhydra hydra-org (:color blue)
+    ))
+
+;; ------------------------------------------------------------------------
+(defhydra hydra-org (:color blue :columns 3)
   "
-  ^
-  ^Org^             ^Do^
-  ^───^─────────────^──^─────────────
-  _q_ quit          _a_ archive
-  ^^                _c_ clock
-  ^^                _e_ export
-  ^^                _i_ insert-link
-  ^^                _j_ jump-task
-  ^^                _k_ cut-subtree
-  ^^                _o_ open-link
-  ^^                _r_ refile
-  ^^                _s_ store-link
-  ^^                _t_ todo-tree
-  ^^                ^^
+      org-mode:
   "
-  ("q" nil)
-  ("a" hydra-archive/body)
-  ("c" hydra-clock/body)
-  ("e" hydra-ox/body)
-  ("k" org-cut-subtree)
-  ("i" org-insert-link-global)
-  ("j" my/org-jump)
-  ("o" org-open-at-point-global)
-  ("r" org-refile)
-  ("s" org-store-link)
-  ("t" org-show-todo-tree))
+
+  ("a" hydra-archive/body "archive")
+  ("c" hydra-clock/body "clock")
+  ("d" org-decrypt-entry "decrypt-entry")
+  ("D" org-decrypt-entries "decrypt-entries")
+  ("e" org-encrypt-entry "encrypt-entry")
+  ("E" org-encrypt-entries "encrypt-entries")
+  ("x" hydra-ox/body "export")
+  ("k" org-cut-subtree "cut-subtree")
+  ("l" org-insert-link-global "insert-link")
+  ("g" org-set-tags "set-tags")
+  ("o" org-open-at-point-global "open-link")
+  ("r" org-refile "refile")
+  ("s" org-store-link "store-link")
+  ("t" org-show-todo-tree "todo-tree")
+  ("q" nil "quit" :color red))
 
 
-(defhydra hydra-clock (:color blue)
+(defhydra hydra-clock (:color blue :hint nil)
   "
   ^
   ^Clock^             ^Do^
