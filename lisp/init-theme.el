@@ -3,11 +3,13 @@
 ;;; Code:
 
 (use-package doom-themes
+  :disabled t
   ;; :config
   ;; (load-theme 'doom-one t)
   )
 
 (use-package sublime-themes
+  :disabled t
   ;; :config
   ;; (load-theme 'doom-one t)
   )
@@ -22,17 +24,20 @@
   (setq solarized-high-contrast-mode-line t)
   (setq solarized-use-more-italic t)
   (setq solarized-scale-org-headlines t)
-
-  (defun solarized-no-background! ()
-    (interactive)
-    (set-face-background 'default "unspecified-bg"))
   )
 
+(defun solarized-no-background! ()
+    (interactive)
+    (set-face-background 'default "unspecified-bg"))
+
  (cond (*win64*
-         (load-theme 'leuven t))
-         (t
+        ;; (load-theme 'leuven t)
+        ;; (load-theme 'solarized-light t)
          (load-theme 'solarized-dark t)
-         ;; (solarized-no-background!)
+        ;; (solarized-no-background!)
+	)
+       (t
+         (load-theme 'solarized-dark t)
 	 ))
 
 ;; If you don't customize it, this is the theme you get.

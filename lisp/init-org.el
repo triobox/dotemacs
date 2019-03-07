@@ -147,30 +147,30 @@
     (setq org-capture-templates
 	  (quote (("t" "todo" entry
 		   (file "") ;; => `org-default-notes-file'
-		   "* TODO %?\n%U\n%a\n" :clock-in t :empty-lines 1)
+		   "** TODO %?\n%U\n%a\n" :clock-in t :empty-lines 1)
 		  ("r" "respond" entry
 		   (file "")
-		   "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :immediate-finish t :empty-lines 1)
+		   "** NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :immediate-finish t :empty-lines 1)
 		  ("n" "note" entry
 		   (file "")
-		   "* NOTE %?\n%U\n%a\n" :clock-in t :empty-lines 1)
+		   "** NOTE %?\n%U\n%a\n" :clock-in t :empty-lines 1)
 		  ;; ("n" "note" entry (file "")
 		  ;;  "* %?\n\n  %i\n\n  see: %a" :clock-in t :clock-resume t :empty-lines 1)
 		  ("j" "journal" entry
 		   (file+olp+datetree "~/org/diary.org")
-		   "* %?\n%U\n" :clock-in t :empty-lines 1)
+		   "** %?\n%U\n" :clock-in t :empty-lines 1)
 		  ("w" "org-protocol"
 		   entry (file "")
-		   "* TODO Review %c\n%U\n" :immediate-finish t :empty-lines 1)
+		   "** TODO Review %c\n%U\n" :immediate-finish t :empty-lines 1)
 		  ("m" "meeting" entry
 		   (file "")
-		   "* MEETING with %? :MEETING:\n%U" :clock-in t :empty-lines 1)
+		   "** MEETING with %? :MEETING:\n%U" :clock-in t :empty-lines 1)
 		  ("p" "phone call" entry
 		   (file "")
-		   "* PHONE %? :PHONE:\n%U" :clock-in t :empty-lines 1)
+		   "** PHONE %? :PHONE:\n%U" :clock-in t :empty-lines 1)
 		  ("h" "habit" entry
 		   (file "")
-		   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+		   "** NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
     )
   :config
   (progn
@@ -234,6 +234,7 @@
 ;; ------------------------------------------------------------------------
 (use-package org-crypt
   :ensure nil
+  :defer 1
   :config
   (progn
     ;; encrypt before save file

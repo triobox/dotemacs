@@ -20,6 +20,9 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message "")
 
+(setq inhibit-compacting-font-caches t)
+
+
 ;; editor behavior
 (setq ring-bell-function 'ignore)
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -84,7 +87,7 @@
 (global-prettify-symbols-mode t)
 
 ;; Font and Frame Size
-(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(height . 44))
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Setting English Font

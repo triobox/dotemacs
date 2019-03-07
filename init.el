@@ -9,19 +9,12 @@
 ;; Produce backtraces when errors occur
 ;; (setq debug-on-error t)
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
-;(setq emacs-load-start-time (current-time))
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 
 ;; Measure startup time
-(require 'init-benchmarking)
+;; (require 'init-benchmarking)
+(setq emacs-load-start-time (current-time))
 
 (setq *win64* (eq system-type 'windows-nt))
 (setq *cygwin* (eq system-type 'cygwin) )
@@ -44,7 +37,6 @@
   (setq gc-cons-percentage 0.5)
   (run-with-idle-timer 5 t #'garbage-collect))
 
-
 ;; Normally file-name-handler-alist is set to
 ;; (("\\`/[^/]*\\'" . tramp-completion-file-name-handler)
 ;; ("\\`/[^/|:][^/|]*:" . tramp-file-name-handler)
@@ -58,7 +50,7 @@
   (require 'init-utils)
   ;; (require 'init-site-lisp)
   (require 'init-elpa)
-  (require 'init-use-package)
+  ;; (require 'init-use-package)
 
   (require 'init-hydra)
   (require 'init-exec-path)
@@ -66,10 +58,10 @@
   (require 'init-recentf)
   ;; (require 'init-autocomplete)
   (require 'init-company)
-  (require 'init-dumb-jump)
+  ;; (require 'init-dumb-jump)
   (require 'init-dired)
 
-  (require 'init-calendar)
+  ;; (require 'init-calendar)
   (require 'init-ibuffer)
   (require 'init-ivy)
   (require 'init-hippie-expand)
@@ -82,31 +74,39 @@
   (require 'init-python-anaconda)
   (require 'init-flycheck)
   (require 'init-org)
-  (require 'init-magit)
-  (require 'init-projectile)
+  ;; (require 'init-magit)
+  ;; (require 'init-projectile)
   (require 'init-paredit)
   (require 'init-theme)
   (require 'init-whichkey)
-  (require 'init-workgroups2)
+  ;; (require 'init-workgroups2)
   (require 'init-undotree)
-  (require 'init-spelling)
-  (require 'init-epa)
+  ;; (require 'init-spelling)
+  ;; (require 'init-epa)
 
   (require 'init-misc)
 
   ;; Allow access from emacsclient
-  (require 'init-server)
+  ;; (require 'init-server)
 
   ;; Variables configured via the interactive 'customize' interface
-  (when (file-exists-p custom-file)
-    (load custom-file))
+  ;; (when (file-exists-p custom-file)
+  ;;   (load custom-file))
 
   ;; Allow users to provide an optional "init-local"
   ;; containing personal settings
   ;; (require 'init-local nil t)
-  (when (file-exists-p local-file)
-    (load local-file))
+  ;; (when (file-exists-p local-file)
+  ;;   (load local-file))
 
   )
+
+;; Then reset it as late as possible; these are the reasonable defaults I use.
+;; (setq gc-cons-threshold 16777216
+;;       gc-cons-percentage 0.1)
+
+(server-start)
+
+(message "Start up time %.2fs" (float-time (time-subtract (current-time) emacs-load-start-time)))
 
 ;;; init.el ends here
