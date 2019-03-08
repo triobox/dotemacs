@@ -65,7 +65,7 @@
   (require 'init-ibuffer)
   (require 'init-ivy)
   (require 'init-hippie-expand)
-  ;; (require 'init-sessions)
+  (require 'init-sessions)
 
   (require 'init-lisp)
   (require 'init-elisp)
