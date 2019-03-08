@@ -50,7 +50,6 @@
   (require 'init-utils)
   ;; (require 'init-site-lisp)
   (require 'init-elpa)
-  ;; (require 'init-use-package)
 
   (require 'init-hydra)
   (require 'init-exec-path)
@@ -75,8 +74,8 @@
   (require 'init-python-anaconda)
   (require 'init-flycheck)
   (require 'init-org)
-  ;; (require 'init-magit)
-  ;; (require 'init-projectile)
+  (require 'init-magit)
+  (require 'init-projectile)
   (require 'init-paredit)
   (require 'init-theme)
   (require 'init-whichkey)
