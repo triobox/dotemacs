@@ -30,15 +30,25 @@
     (interactive)
     (set-face-background 'default "unspecified-bg"))
 
- (cond (*win64*
-        ;; (load-theme 'leuven t)
-        ;; (load-theme 'solarized-light t)
-         (load-theme 'solarized-dark t)
-        ;; (solarized-no-background!)
-	)
-       (t
-         (load-theme 'solarized-dark t)
-	 ))
+
+;; ---------------------------------
+(load-theme 'solarized-dark t)
+(unless (display-graphic-p)
+    (solarized-no-background!)
+  ;; (load-theme 'tango-dark t)
+  )
+
+
+;; (cond ((display-graphic-p)
+;;        (load-theme 'solarized-dark t))
+;;       ;; (*win64*
+;;       ;;  ;; (load-theme 'leuven t)
+;;       ;;  ;; (load-theme 'solarized-light t)
+;;       ;;  ;; (solarized-no-background!)
+;;       ;;  )
+;;       (t
+;;        (load-theme 'solarized-dark t)
+;;        ))
 
 ;; If you don't customize it, this is the theme you get.
 ;; (setq-default custom-enabled-themes '(solarized-dark))

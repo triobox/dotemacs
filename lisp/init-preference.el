@@ -3,15 +3,21 @@
 ;;; Code:
 
 ;; minimal UI
-(scroll-bar-mode -1)
-(tool-bar-mode   -1)
-(tooltip-mode    -1)
-(menu-bar-mode   -1)
+(if (display-graphic-p)
+    (progn
+      (scroll-bar-mode -1)
+      (tool-bar-mode   -1)
+      (tooltip-mode    -1)
+      (menu-bar-mode   -1)
+      (global-hl-line-mode 1)
+      )
+  (global-hl-line-mode -1)
+  )
+
 (line-number-mode -1) ; display line number in mode line
 (column-number-mode -1) ; display colum number in mode line
 ;; (setq show-paren-delay 0) ; Show matching parens
 (show-paren-mode 1) ; highlight delimiters
-(global-hl-line-mode 1) ; Highlight the current line.
 ;; (save-place-mode) ; save cursor position between sessions
 
 ;; setup lines to wrap
@@ -93,6 +99,7 @@
 ;; Setting English Font
 (set-face-attribute
  'default nil :font "Monaco 10")
+
 ;; Chinese Font
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
