@@ -16,3 +16,6 @@ anaconda-mode/
 server/
 smex-items
 bookmarks
+.session
+history
+transient/

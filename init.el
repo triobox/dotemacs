@@ -13,8 +13,8 @@
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 
 ;; Measure startup time
-;; (require 'init-benchmarking)
-(setq emacs-load-start-time (current-time))
+(require 'init-benchmarking)
+;; (setq emacs-load-start-time (current-time))
 
 (setq *win64* (eq system-type 'windows-nt))
 (setq *cygwin* (eq system-type 'cygwin) )
@@ -65,6 +65,7 @@
   (require 'init-ibuffer)
   (require 'init-ivy)
   (require 'init-hippie-expand)
+  ;; (require 'init-sessions)
 
   (require 'init-lisp)
   (require 'init-elisp)
@@ -101,12 +102,8 @@
 
   )
 
-;; Then reset it as late as possible; these are the reasonable defaults I use.
-;; (setq gc-cons-threshold 16777216
-;;       gc-cons-percentage 0.1)
-
 (server-start)
 
-(message "Start up time %.2fs" (float-time (time-subtract (current-time) emacs-load-start-time)))
+;; (message "Start up time %.2fs" (float-time (time-subtract (current-time) emacs-load-start-time)))
 
 ;;; init.el ends here
