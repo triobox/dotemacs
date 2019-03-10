@@ -9,6 +9,8 @@ recentf
 *.swp
 *#
 *.backup.el
+*.desktop
+*.desktop.lock
 places
 emacs-custom
 test/

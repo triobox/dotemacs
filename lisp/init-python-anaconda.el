@@ -110,31 +110,30 @@
 
 (use-package anaconda-mode
   :defer t
-  ;; :after (python)
+  :after (python)
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-
-  :config
-  (use-package company-anaconda
-    :defer t
-    ;; :after (company python)
-    :init
-    (push 'company-anaconda company-backends)
+  ;; :config
   )
 
-  (use-package conda
+(use-package company-anaconda
+    :defer t
+    :after (company python)
+    ;; :init
+    ;; (push 'company-anaconda company-backends)
+    )
+
+(use-package conda
     :defer t
     :init
-    ;; (custom-set-variables '(conda-anaconda-home "~/miniconda3"))
+    (custom-set-variables '(conda-anaconda-home "~/miniconda3"))
     :config
     (conda-env-initialize-interactive-shells)
     ;; (conda-env-initialize-eshell)
     (conda-env-autoactivate-mode t)
     (setq-default mode-line-format
                   (cons '(:exec conda-env-current-name) mode-line-format)))
-  )
-
 
 (defhydra hydra-python (:hint nil :color teal)
  "

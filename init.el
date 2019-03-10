@@ -90,8 +90,8 @@
   ;; (require 'init-server)
 
   ;; Variables configured via the interactive 'customize' interface
-  ;; (when (file-exists-p custom-file)
-  ;;   (load custom-file))
+  (when (file-exists-p custom-file)
+    (load custom-file))
 
   ;; Allow users to provide an optional "init-local"
   ;; containing personal settings
@@ -101,7 +101,7 @@
 
   )
 
-(server-start)
+;; (server-start)
 
 ;; (message "Start up time %.2fs" (float-time (time-subtract (current-time) emacs-load-start-time)))
 
