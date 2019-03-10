@@ -2,34 +2,58 @@
 ;;; commentary:
 ;;; code:
 
+
+;; https://workgroups2.readthedocs.io/en/latest/index.html
+
 (use-package workgroups2
   :defer 2
   :diminish (workgroups-mode . "WG")
   :init
-  (setq wg-use-default-session-file nil)
-  ;; don't open last workgroup automatically in wg-open-session,
-  ;; I only want to check available workgroups! Nothing more.
-  (setq wg-load-last-workgroup nil)
-  (setq wg-open-this-wg nil)
-  ;(setq wg-prefix-key (kbd "C-c z"))
-  (which-key-add-key-based-replacements "C-c z" "workgroups-command-map")
-  :config
-  (workgroups-mode 1)
+  ;;(setq wg-session-load-on-start t)    ; default: (not (daemonp))
+
   ;; <prefix> ? to list all the commands and their bindings
-  ;; by default, the sessions are saved in "~/.emacs_workgroups"
+  ;; Change prefix key (before activating WG)
+  ;; (setq wg-prefix-key (kbd "C-c z"))
+  (which-key-add-key-based-replacements "C-c z" "workgroups-command-map")
+
+  :config
+  (setq
+   wg-session-file (expand-file-name "workgroups" user-emacs-directory)
+   wg-open-this-wg nil
+   wg-use-default-session-file nil
+   wg-load-last-workgroup nil    ; don't open last workgroup automatically in wg-open-session
+
+
+   wg-mode-line-decor-left-brace "["
+   wg-mode-line-decor-right-brace "]"
+   wg-mode-line-only-name t       ; show only current WG name
+   wg-display-nowg nil              ; if no workgroups - display nothing
+   wg-mode-line-use-faces t       ; colorize mode line
+   wg-use-faces t                 ; colorize messages
+
+   wg-flag-modified nil
+   wg-emacs-exit-save-behavior           nil ; Options: 'save 'ask nil
+   wg-workgroups-mode-exit-save-behavior nil ; Options: 'save 'ask nil
+   wg-mess-with-buffer-list nil
+
+   )
+
+  (workgroups-mode 1)
+
+
   (defun my-wg-switch-workgroup ()
     (interactive)
     (let* ((group-names (mapcar (lambda (group)
-                                ;; re-shape list for the ivy-read
-                                (cons (wg-workgroup-name group) group))
-                              (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file)))))))
-       (ivy-read "work groups"
-              group-names
-              :action (lambda (e)
-                        (wg-find-session-file wg-default-session-file)
-                        ;; ivy8 & ivy9
-                        (if (stringp (car e)) (setq e (cdr e)))
-                        (wg-switch-to-workgroup e)))))
+                                  ;; re-shape list for the ivy-read
+                                  (cons (wg-workgroup-name group) group))
+                                (wg-session-workgroup-list (read (f-read-text (file-truename wg-session-file)))))))
+      (ivy-read "work groups"
+                group-names
+                :action (lambda (e)
+                          (wg-find-session-file wg-default-session-file)
+                          ;; ivy8 & ivy9
+                          (if (stringp (car e)) (setq e (cdr e)))
+                          (wg-switch-to-workgroup e)))))
 
   ;; (eval-after-load 'workgroups2
   ;;   '(progn
@@ -55,7 +79,7 @@
   ;;    ;; I'm fine to to override the original workgroup
   ;;    (defadvice wg-unique-workgroup-name-p (around wg-unique-workgroup-name-p-hack activate)
   ;;      (setq ad-return-value t))))
-)
+  )
 
 (provide 'init-workgroups2)
 ;;; init-workgroup2.el ends here
