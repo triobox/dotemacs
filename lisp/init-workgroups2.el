@@ -8,13 +8,15 @@
 (use-package workgroups2
   :defer 2
   :diminish (workgroups-mode . "WG")
+  :bind (("C-c z" . hydra-workgroup2/body)
+         )
   :init
   ;;(setq wg-session-load-on-start t)    ; default: (not (daemonp))
 
   ;; <prefix> ? to list all the commands and their bindings
   ;; Change prefix key (before activating WG)
   ;; (setq wg-prefix-key (kbd "C-c z"))
-  (which-key-add-key-based-replacements "C-c z" "workgroups-command-map")
+  ;; (which-key-add-key-based-replacements "C-c z" "workgroups-command-map")
 
   :config
   (setq
@@ -79,6 +81,28 @@
   ;;    ;; I'm fine to to override the original workgroup
   ;;    (defadvice wg-unique-workgroup-name-p (around wg-unique-workgroup-name-p-hack activate)
   ;;      (setq ad-return-value t))))
+  )
+
+
+(defhydra hydra-workgroup2 (:color blue :columns 3)
+  "
+       Workgroup2-mode:
+  "
+  ("!" wg-reset "reset workgroups")
+  ("?" wg-help "help")
+  ("a" wg-associate-buffer-with-workgroup "associate buffer")
+  ("A" wg-rename-workgroup "rename workgroup")
+  ("c" wg-create-workgroup "create workgroup")
+  ("C" wg-clone-workgroup "clone workgroup")
+  ("f" wg-find-session-file "find sesion file")
+  ("k" wg-kill-workgroup "kill workgroup")
+  ("y" wg-yank-workgroup "yank workgroup")
+  ("o" wg-open-session "open session")
+  ("v" my-wg-switch-workgroup "switch workgroup")
+  ("s" wg-save-session "save workgroup")
+  ("S" wg-save-session-as "save-as workgroup")
+
+  ("q" nil "quit" :color red)
   )
 
 (provide 'init-workgroups2)
