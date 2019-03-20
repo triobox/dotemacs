@@ -9,8 +9,11 @@ recentf
 *.swp
 *#
 *.backup.el
-*.desktop
-*.desktop.lock
+*emacs.desktop
+*emacs.desktop.lock
+*.backup
+*.bak
+*.workgroups
 places
 emacs-custom
 test/

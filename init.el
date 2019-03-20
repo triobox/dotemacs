@@ -64,7 +64,7 @@
   (require 'init-ibuffer)
   (require 'init-ivy)
   (require 'init-hippie-expand)
-  ;; (require 'init-sessions)
+  (require 'init-sessions)
 
   (require 'init-lisp)
   (require 'init-elisp)
@@ -79,7 +79,7 @@
   (require 'init-paredit)
   (require 'init-theme)
   (require 'init-whichkey)
-  (require 'init-workgroups2)
+  ;; (require 'init-workgroups2)
   (require 'init-undotree)
   ;; (require 'init-spelling)
   ;; (require 'init-epa)
