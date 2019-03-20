@@ -2,20 +2,19 @@
 ;;; commentary:
 ;;; code:
 
-
 ;; https://workgroups2.readthedocs.io/en/latest/index.html
 
 (use-package workgroups2
-  :defer 2
-  :diminish (workgroups-mode . "WG")
-  :bind (("C-c z" . hydra-workgroup2/body)
-         )
+  :defer 1
+  :diminish (workgroups-mode . "")
+  :bind (("C-c z" . hydra-workgroups2/body))
   :init
   ;;(setq wg-session-load-on-start t)    ; default: (not (daemonp))
 
   ;; <prefix> ? to list all the commands and their bindings
   ;; Change prefix key (before activating WG)
   ;; (setq wg-prefix-key (kbd "C-c z"))
+  (setq wg-prefix-key (kbd "C-c C-z"))
   ;; (which-key-add-key-based-replacements "C-c z" "workgroups-command-map")
 
   :config
@@ -23,13 +22,13 @@
    wg-session-file (expand-file-name "workgroups" user-emacs-directory)
    wg-open-this-wg nil
    wg-use-default-session-file nil
-   wg-load-last-workgroup nil    ; don't open last workgroup automatically in wg-open-session
+   wg-load-last-workgroup nil ; don't open last workgroup automatically in wg-open-session
 
 
    wg-mode-line-decor-left-brace "["
    wg-mode-line-decor-right-brace "]"
    wg-mode-line-only-name t       ; show only current WG name
-   wg-display-nowg nil              ; if no workgroups - display nothing
+   wg-display-nowg nil            ; if no workgroups - display nothing
    wg-mode-line-use-faces t       ; colorize mode line
    wg-use-faces t                 ; colorize messages
 
@@ -41,7 +40,6 @@
    )
 
   (workgroups-mode 1)
-
 
   (defun my-wg-switch-workgroup ()
     (interactive)
@@ -84,26 +82,32 @@
   )
 
 
-(defhydra hydra-workgroup2 (:color blue :columns 3)
+(defhydra hydra-workgroups2 (:color blue :columns 3)
   "
-       Workgroup2-mode:
+       Workgroups-mode:
   "
   ("!" wg-reset "reset workgroups")
   ("?" wg-help "help")
   ("a" wg-associate-buffer-with-workgroup "associate buffer")
-  ("A" wg-rename-workgroup "rename workgroup")
+  ("A" wg-associate-visible-buffers-with-workgroup "associate v-buffers")
   ("c" wg-create-workgroup "create workgroup")
   ("C" wg-clone-workgroup "clone workgroup")
-  ("f" wg-find-session-file "find sesion file")
+  ("d" wg-delete-other-workgroups "delete others")
+  ("f" wg-find-session-file "find sesion")
   ("k" wg-kill-workgroup "kill workgroup")
-  ("y" wg-yank-workgroup "yank workgroup")
-  ("o" wg-open-session "open session")
+  ("l" wg-reload-session "reload session")
+  ;; ("o" wg-open-session "open session")
+  ("r" wg-rename-workgroup "rename workgroup")
+  ("s" wg-save-session "save session")
+  ("S" wg-save-session-as "save session as ")
   ("v" my-wg-switch-workgroup "switch workgroup")
-  ("s" wg-save-session "save workgroup")
-  ("S" wg-save-session-as "save-as workgroup")
+  ("w" wg-save-wconfig "write wconfig")
+  ("y" wg-yank-workgroup "yank workgroup")
 
   ("q" nil "quit" :color red)
   )
+
+;; (global-set-key (kbd "C-c z") 'hydra-workgroup2/body)
 
 (provide 'init-workgroups2)
 ;;; init-workgroup2.el ends here
