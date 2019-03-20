@@ -90,10 +90,31 @@
   )
 
 
+(use-package ivy-hydra
+  :after (ivy)
+  :bind (("M-s i" . hydra-ivy/body))
+  )
+
+(use-package ivy-rich
+  :after (ivy)
+  ;; :custom
+  ;; (ivy-virtual-abbreviate 'full
+  ;;                         ivy-rich-switch-buffer-align-virtual-buffer t
+  ;;                         ivy-rich-path-style 'abbrev)
+  :config
+  (setq ivy-format-function #'ivy-format-function-line)
+
+  (ivy-rich-mode 1)
+  ;; (ivy-set-display-transformer 'ivy-switch-buffer
+  ;;                              'ivy-rich-switch-buffer-transformer)
+  )
+
+
 (use-package swiper
   :after (ivy)
   :bind
-  (:map ivy-mode-map ("M-s /" . swiper-at-point))
+  (:map ivy-mode-map ("M-s /" . swiper-at-point)
+        ("C-s" . swiper))
   :config
   (defun swiper-at-point (sym)
     "use swiper to search for the symbol at point."
