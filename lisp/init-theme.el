@@ -14,6 +14,7 @@
   ;; (load-theme 'doom-one t)
   )
 
+(use-package tango-plus-theme)
 
 (use-package solarized-theme
   :defer t
@@ -32,12 +33,17 @@
 
 
 ;; ---------------------------------
-(load-theme 'solarized-dark t)
-(unless (display-graphic-p)
-    (solarized-no-background!)
-  ;; (load-theme 'tango-dark t)
-  )
+;; (load-theme 'solarized-dark t)
+;; (unless (display-graphic-p)
+;;     (solarized-no-background!)
+;;   (load-theme 'tango-plus t)
+;;   )
 
+
+(if *win64*
+    (load-theme 'tango-plus t)
+  (load-theme 'solarized-dark t)
+  )
 
 ;; (cond ((display-graphic-p)
 ;;        (load-theme 'solarized-dark t))
