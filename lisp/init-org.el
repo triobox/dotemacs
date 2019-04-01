@@ -10,20 +10,6 @@
 ;; (define-key global-map "\C-ca" 'org-agenda)
 ;; (define-key global-map "\C-cc" 'org-capture)
 
-;; a couple of short-cut keys to make it easier to edit text.
-(defun org-text-bold ()
-  "Wraps the region with asterisks."
-  (interactive)
-  (surround-text "*"))
-(defun org-text-italics ()
-  "Wraps the region with slashes."
-  (interactive)
-  (surround-text "/"))
-(defun org-text-code ()
-  "Wraps the region with equal signs."
-  (interactive)
-  (surround-text "="))
-
 (defun org-goto-header ()
   "Goes to the beginning of an element's header, so that you can execute speed commands."
   (interactive)
@@ -52,17 +38,8 @@
     (bind-keys :map org-mode-map
 	       ("C-c ." . org-time-stamp)
 	       ("C-c !" . org-time-stamp-inactive)
-	       ("A-b" . (surround-text-with "+"))
-	       ("s-b" . (surround-text-with "*"))
-	       ("A-i" . (surround-text-with "/"))
-	       ("s-i" . (surround-text-with "/"))
-	       ("A-=" . (surround-text-with "="))
-	       ("s-=" . (surround-text-with "="))
-	       ("A-`" . (surround-text-with "~"))
-	       ("s-`" . (surround-text-with "~"))
 	       ("C-s-f" . forward-sentence)
 	       ("C-s-b" . backward-sentence))
-
 
     (setq
      org-startup-indented t
@@ -126,11 +103,13 @@
 
 ;; ------------------------------------------------------------------------
 (use-package org-bullets
-  :if *unix* 				; not work well in windows
   :init
-  (add-hook 'org-mode-hook 'org-bullets-mode))
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;; (setq org-bullets-bullet-list '("☉" "☆" "○" "□" "◇" "◦"))
+  (setq org-bullets-bullet-list '("■" "★" "●"  "◆" "•" "∙"))
+  )
 
-;; ------------------------------------------------------------------------
+;; ----------------------------------------------------------------
 
 ;; (use-package ox-clip
 ;;   ;; :ensure nil
@@ -261,9 +240,13 @@
   ("D" org-decrypt-entries "decrypt-entries")
   ("e" org-encrypt-entry "encrypt-entry")
   ("E" org-encrypt-entries "encrypt-entries")
-  ("x" hydra-ox/body "export")
+
+  ("m" org-emphasize "emphasize")
+  ;; ("x" hydra-ox/body "export")
+  ("x" org-export-dispatch "export")
   ("k" org-cut-subtree "cut-subtree")
   ("l" org-insert-link-global "insert-link")
+  ("L" org-toggle-link-display "display-link")
   ("g" org-set-tags "set-tags")
   ("o" org-open-at-point-global "open-link")
   ("r" org-refile "refile")
