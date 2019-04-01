@@ -82,9 +82,12 @@
 (setq local-file (expand-file-name "local.el" user-emacs-directory))
 
 
-(prefer-coding-system 'utf-8)
-(setq conding-system-for-read 'utf-8)
-(setq conding-system-for-write 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (setq conding-system-for-read 'utf-8)
+;; (setq conding-system-for-write 'utf-8)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
 
 ;; remove tailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -97,8 +100,10 @@
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Setting English Font
-(set-face-attribute
- 'default nil :font "Monaco 10")
+(if *win64*
+    (set-face-attribute 'default nil :font "Consolas 10")
+ (set-face-attribute 'default nil :font "Monaco 10")
+)
 
 ;; Chinese Font
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
@@ -106,7 +111,7 @@
                     charset
                     (if *win64*
                         (font-spec :family "Microsoft YaHei" :size 13)
-                      (font-spec :family "WnQuanYi Zen Hei Mono" :size- 13)
+                      (font-spec :family "WenQuanYi Zen Hei Mono" :size- 13)
                       )
                     ))
 
