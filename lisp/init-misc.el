@@ -71,7 +71,7 @@
 (use-package ag :defer t)
 
 (use-package key-seq
-  :disable t
+  :disabled t
   :after key-chord
   :config
   (key-seq-define-global "qb" #'counsel-bookmark)
