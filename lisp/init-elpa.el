@@ -34,9 +34,9 @@
   (setq package-archives
 	'(		      ;("localelpa" . "~/.emacs.d/localelpa/")
           ;; {{ backup repositories
-	  ;; ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+	  ;;  ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
           ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+          ;;  ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
           ;; }}
 
           ;; {{ backup repositories
@@ -58,9 +58,9 @@
 
   (package-initialize)
 
-  (require 'auto-compile)
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode)
+  ;(require 'auto-compile)
+  ;(auto-compile-on-load-mode)
+  ;(auto-compile-on-save-mode)
 
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
