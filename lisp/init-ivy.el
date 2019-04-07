@@ -9,7 +9,7 @@
   ;;            avy-goto-char-in-line
   ;;            avy-goto-line
   ;;            avy-goto-char)
-  :bind (("C-;" . hydra-avy/body))
+  :bind (("C-`" . hydra-avy/body))
   :config
   ;; (setq avy-keys '(?a ?t ?u ?s ?i ?r ?e ?n ?p ?d ?l))
   (setq avy-all-windows nil)
@@ -25,12 +25,12 @@
   ("2" avy-goto-char-2 "goto-char-2")
   ("l" avy-goto-line "goto-line")
   ("e" avy-goto-end-of-line "goto-end-of-line")
-  ("c" avy-copy-line "copy-line")
-  ("C" avy-copy-region "copy-region" :color green)
-  ("d" avy-kill-whole-line "delete-line")
-  ("D" avy-kill-region "delete-region" :color green)
-  ("k" avy-kill-ring-save-whole-line "kill-ring-line")
-  ("K" avy-kill-ring-save-region "kill-ring-region" :color green)
+  ("c" avy-copy-line "copy-past-line")
+  ("C" avy-copy-region "copy-past-region" :color green)
+  ("d" avy-kill-whole-line "kill-line")
+  ("D" avy-kill-region "kill-region" :color green)
+  ("k" avy-kill-ring-save-whole-line "copy-line")
+  ("K" avy-kill-ring-save-region "copy-region" :color green)
   ("q" nil "quit" :color red)
   )
 
@@ -111,6 +111,7 @@
   )
 
 (use-package ivy-rich
+  :disabled t
   :after (ivy)
   ;; :custom
   ;; (ivy-virtual-abbreviate 'full
