@@ -2,62 +2,29 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package doom-themes
-  :disabled t
-  ;; :config
-  ;; (load-theme 'doom-one t)
-  )
-
-(use-package sublime-themes
-  :disabled t
-  ;; :config
-  ;; (load-theme 'doom-one t)
-  )
-
-(use-package tango-plus-theme)
+(use-package tango-plus-theme
+  :defer t)
 
 (use-package solarized-theme
-  :defer t
-  :config
+  :init
   ;; make the fringe stand out from the background
   (setq solarized-distinct-fringe-background t)
   (setq solarized-use-variable-pitch t)
   (setq solarized-high-contrast-mode-line t)
   (setq solarized-use-more-italic t)
   (setq solarized-scale-org-headlines t)
+  :config
+  ;; (load-theme 'solarized-dark t)
   )
 
-(defun solarized-no-background! ()
-    (interactive)
-    (set-face-background 'default "unspecified-bg"))
-
-
-;; ---------------------------------
-;; (load-theme 'solarized-dark t)
-;; (unless (display-graphic-p)
-;;     (solarized-no-background!)
-;;   (load-theme 'tango-plus t)
-;;   )
-
-
-(if *win64*
-    (load-theme 'tango-plus t)
-  (load-theme 'solarized-dark t)
+(if *linux*
+    (load-theme 'solarized-dark t)
+  (load-theme 'tango-plus t)
   )
 
-;; (cond ((display-graphic-p)
-;;        (load-theme 'solarized-dark t))
-;;       ;; (*win64*
-;;       ;;  ;; (load-theme 'leuven t)
-;;       ;;  ;; (load-theme 'solarized-light t)
-;;       ;;  ;; (solarized-no-background!)
-;;       ;;  )
-;;       (t
-;;        (load-theme 'solarized-dark t)
-;;        ))
 
 ;; If you don't customize it, this is the theme you get.
-;; (setq-default custom-enabled-themes '(solarized-dark))
+(setq-default custom-enabled-themes '(solarized-dark))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
