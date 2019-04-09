@@ -9,7 +9,7 @@
   ;;            avy-goto-char-in-line
   ;;            avy-goto-line
   ;;            avy-goto-char)
-  :bind (("C-`" . hydra-avy/body))
+  :bind (("C-." . hydra-avy/body))
   :config
   ;; (setq avy-keys '(?a ?t ?u ?s ?i ?r ?e ?n ?p ?d ?l))
   (setq avy-all-windows nil)
