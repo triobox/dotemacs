@@ -70,7 +70,7 @@
   (require 'init-elisp)
   (require 'init-common-lisp)
 
-  (require 'init-evil)
+  ;; (require 'init-evil)
   (require 'init-python-anaconda)
   (require 'init-flycheck)
   (require 'init-org)
