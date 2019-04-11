@@ -4,8 +4,8 @@
 
 (use-package lispy
   :defer t
-  ;; :diminish (lispy-mode . " λ")
-  :diminish (lispy-mode . "")
+  :diminish (lispy-mode . " λ")
+  ;; :diminish (lispy-mode . "")
   :commands lispy-mode
   ;; :hook ((emacs-lisp-mode-hook lisp-mode-hook) . lispy-mode)
   :init
@@ -14,12 +14,12 @@
   :config
   (setq lispy-avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m)))
 
-(use-package lispyville
-  :after (lispy)
-  :defer t
-  :diminish (lispyville-mode . " λe")
-  :init
-  (add-hook 'lispy-mode-hook #'lispyville-mode))
+;; (use-package lispyville
+;;   :after (lispy)
+;;   :defer t
+;;   :diminish (lispyville-mode . " λe")
+;;   :init
+;;   (add-hook 'lispy-mode-hook #'lispyville-mode))
 
 
 (defun lispy-insert-prev-outline-body ()
