@@ -8,7 +8,7 @@
 
 (use-package ibuffer
   :diminish ibuffer-mode
-  :bind* (("C-x c-b" . ibuffer)
+  :bind* (("C-x C-b" . ibuffer)
 	  ("C-x d" . kill-current-buffer)
 	  ;; ("C-x C-b" . hydra-buffer/body)
 	  )
