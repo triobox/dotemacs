@@ -62,7 +62,7 @@
 
   ;; (require 'init-calendar)
   (require 'init-ibuffer)
-  (require 'ace-window)
+  (require 'init-ace-window)
   (require 'init-ivy)
   (require 'init-hippie-expand)
   (require 'init-sessions)
