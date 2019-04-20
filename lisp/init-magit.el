@@ -26,13 +26,6 @@
   (use-package magit-popup)
   (use-package git-commit :defer t)
 
-  (use-package evil-magit
-    :defer t
-    :config
-    (setq evil-magit-state 'normal)
-    ;; (setq evil-magit-use-y-for-yank nil)
-    )
-
   (use-package magit-gitflow
     :defer t
     :commands turn-on-magit-gitflow
