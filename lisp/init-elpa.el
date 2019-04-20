@@ -34,13 +34,15 @@
   (setq package-archives
 	'(		      ;("localelpa" . "~/.emacs.d/localelpa/")
           ;; {{ backup repositories
-	  ;;  ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-          ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ;;  ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
+	   ;; ("org"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+	   ;; ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+           ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+           ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
           ;; }}
 
           ;; {{ backup repositories
           ;; ("melpa" . "http://59.111.0.251/elpa/melpa/")
+          ("org" . "http://mirrors.163.com/elpa/org/")
           ("gnu" . "http://mirrors.163.com/elpa/gnu/")
           ("melpa" . "http://mirrors.163.com/elpa/melpa/")
           ("melpa-stable" . "http://mirrors.163.com/elpa/melpa-stable/")
