@@ -20,17 +20,16 @@
 
 ;; ------------------------------------------------------------------------
 (use-package org			;org-mode
-  :ensure nil
+  ;:ensure nil
   ;; :commands (orgtbl-mode)
   :mode (("\\.txt\\'" . org-mode)
 	 (".*/[0-9]*$" . org-mode))
   :bind (("C-c o" . hydra-org/body)
-	 ;; ("C-c l" . org-store-link)
+	 ("C-c l" . org-store-link)
 	 ;; ("C-c L" . org-insert-link-global)
 	 ("C-c a" . org-agenda)
-	 ("C-c b" . org-goto-header)
-	 ("C-c c" . org-capture)
-	 )
+	 ;; ("C-c b" . org-goto-header)
+	 ("C-c c" . org-capture))
   :init
   (progn)
   :config
@@ -97,9 +96,7 @@
     ;; Teleport heading
     (add-to-list 'org-speed-commands-user (cons "T" 'avy-org-refile-as-child))
 
-    )
-
-  )
+    ))
 
 ;; ------------------------------------------------------------------------
 (use-package org-bullets
@@ -227,6 +224,11 @@
     (setq org-crypt-key nil)
 
     ))
+
+;; ------------------------------------------------------------------------
+(use-package org-tempo
+  :ensure nil
+  :defer t)
 
 ;; ------------------------------------------------------------------------
 (defhydra hydra-org (:color blue :columns 3)
