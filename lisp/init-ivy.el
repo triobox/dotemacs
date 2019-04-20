@@ -45,7 +45,7 @@
    ("C-c C-f" . counsel-git)
    ("C-c C-s" . counsel-git-grep)
    ("C-c /"   . counsel-ag)
-   ("C-c l"   . counsel-locate)
+   ("C-c C-l" . counsel-locate)
    ("C-h a"   . counsel-apropos)
    ("C-h b"   . counsel-descbinds)
    ("C-h f"   . counsel-describe-function)
