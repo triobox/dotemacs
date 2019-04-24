@@ -1,4 +1,4 @@
-;;; init-sessions.el --- Save and restore editor sessions between restarts -*- lexical-binding: t -*-
+;;; init-desktop.el --- Save and restore editor sessions between restarts -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -8,6 +8,8 @@
   :bind (("C-c z" . hydra-desktop/body))
   :config
   (setq-default history-length 1000)
+  ;; don't save frame and window config
+  (setq desktop-restore-frame nil)
   (add-hook 'after-init-hook 'savehist-mode)
 
   ;; save a list of open files in ~/.emacs.d/.emacs.desktop
@@ -15,17 +17,17 @@
   ;;       desktop-auto-save-timeout 600)
 
   ;; Do not auto-load desktop file when emacs starts
-  ;; (desktop-save-mode 1)
+  (desktop-save-mode nil)
 
-  ;; (setq desktop-buffers-not-to-save
-  ;;      (concat "\\("
-  ;;              "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
-  ;;              "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb"
-  ;;              "\\)$"))
-  ;; (add-to-list 'desktop-modes-not-to-save 'dired-mode)
-  ;; (add-to-list 'desktop-modes-not-to-save 'Info-mode)
-  ;; (add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
-  ;; (add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
+  (setq desktop-buffers-not-to-save
+       (concat "\\("
+               "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
+               "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb"
+               "\\)$"))
+  (add-to-list 'desktop-modes-not-to-save 'dired-mode)
+  (add-to-list 'desktop-modes-not-to-save 'Info-mode)
+  (add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
+  (add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
 
   ;; save a bunch of variables to the desktop file
   ;; for lists specify the len of the maximal saved data also
@@ -79,14 +81,14 @@
   )
 
 
-(use-package session
-  :ensure nil
-  :config
-  (setq session-save-file (expand-file-name ".session" user-emacs-directory))
-  (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
-  (setq session-save-file-coding-system 'utf-8)
-  (add-hook 'after-init-hook 'session-initialize)
-  )
+;; (use-package session
+;;   :ensure nil
+;;   :config
+;;   (setq session-save-file (expand-file-name ".session" user-emacs-directory))
+;;   (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
+;;   (setq session-save-file-coding-system 'utf-8)
+;;   (add-hook 'after-init-hook 'session-initialize)
+;;   )
 
 
 (defhydra hydra-desktop (:color blue :columns 1)
@@ -102,5 +104,5 @@
 
 ;; (global-set-key (kbd "C-c z") 'hydra-desktop/body)
 
-(provide 'init-sessions)
-;;; init-sessions.el ends here
+(provide 'init-desktop)
+;;; init-desktop.el ends here

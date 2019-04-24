@@ -65,7 +65,7 @@
   (require 'init-ace-window)
   (require 'init-ivy)
   (require 'init-hippie-expand)
-  (require 'init-sessions)
+  (require 'init-desktop)
 
   (require 'init-lisp)
   (require 'init-elisp)
