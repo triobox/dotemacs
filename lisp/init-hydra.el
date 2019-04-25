@@ -9,7 +9,7 @@
   :bind (
 	 ;; ("C-c L" . hydra-ledger/body)
          ;; ("C-c c" . hydra-clock/body)
-         ;; ("C-c g" . hydra-go-to-file/body)
+         ("C-c g" . hydra-go-to-file/body)
          ("C-c r" . hydra-rectangle/body)
          ("C-c w" . hydra-windows/body))
 
@@ -157,7 +157,7 @@ _v_ariable     valu_e_"
   ("w" kill-region :exit t))
 
 ;; Group jump-to-files commands.
-(defhydra hydra-go-to-file (:color blue)
+(defhydra hydra-go-to-file (:color blue :hint nil)
   "
   ^
   ^Go To^           ^Config^            ^Agenda             ^Other^
@@ -184,7 +184,7 @@ _v_ariable     valu_e_"
   ("as" (find-file "~/.personal/agenda/school.org"))
   ("ca" (find-file (format "%s/alacritty/alacritty.yml" xdg-config)))
   ("cd" (find-file (format "%s/dunst/dunstrc" xdg-config)))
-  ("ce" (find-file "~/.emacs.d/config.org"))
+  ("ce" (find-file "~/.emacs.d/init.el"))
   ("ci" (find-file (format "%s/i3/config" xdg-config)))
   ("cn" (find-file (format "%s/neofetch/config.conf" xdg-config)))
   ("cp" (find-file (format "%s/polybar/config" xdg-config)))
