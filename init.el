@@ -85,6 +85,7 @@
   ;; (require 'init-spelling)
   ;; (require 'init-epa)
 
+  (require 'init-key-binding)
   (require 'init-misc)
 
   ;; Allow access from emacsclient
