@@ -84,6 +84,7 @@
   (require 'init-undotree)
   ;; (require 'init-spelling)
   ;; (require 'init-epa)
+  (require 'init-javascript)
 
   (require 'init-key-binding)
   (require 'init-misc)
