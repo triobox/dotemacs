@@ -1,0 +1,273 @@
+#+TITLE: Emacs cheatsheet
+
+* File
+C-x C-f          Visit a file
+C-X C-r          Visit a  recent visited file
+C-x C-v          Visit alternate file and kill current buffer
+C-x 4 f          Visit file in another window
+C-x C-q          Toggle read-only-mode
+
+C-x C-s          Save current buffer
+C-u C-x C-s      Back up file before save buffer
+C-x s            Save all buffers
+C-x C-w          Save current buffer as new file name
+C-x C-c          Save buffers and exit emacs
+
+M-x ediff        Compare two files
+M-x diff-backup  Compare a file with its most recent backup
+M-x diff-buffer-with-file
+                 Compare a buffer with its corresponding file
+M-x diff-windows Compare text in two windows
+
+* Undo and redo
+C-/              Undo
+C-_              Undo-tree undo
+M-_              Undo-tree redo
+C-X u            Undo-tree visualize
+
+* Killing and yanking
+C-S-BACKSPACE    Kill-whole-line
+C-K              Kill rest of line
+
+C-d              Delete next char
+C-x C-o          Delete all blank lines after current line
+
+M-d              Kill next word
+M-DEL            kill one word backwards
+
+C-w              Kill region
+M-w              Copy region
+
+C-M-k            Kill s-expression
+
+M-k              Kill to the end of the sentence
+C-x Del          Kill to the head of the sentence
+
+C-y              Yank the last kill
+M-y              Replace yanked text with earlier killed text
+C-M-w            Append following kill to the previous kill
+C-c y            Browse kill ring
+
+C-j              Join two lines
+C-.              hydra-avy
+
+* Rectangle-region
+C-x SPC          Toggle rectangle-mark-mode
+C-x r k          Kill rectangle
+C-x r M-w        Copy rectangle
+C-x r d          Delete rectangle
+C-x r y          Yank the last killed rectangle
+C-x r o          Insert blank space to the left of rectangle
+C-x r N          Insert line numbers along the left of rectangle
+C-x r c          Clear rectangle
+C-x r t str      Replace rectangle with string
+
+C-c r            Hydra-rectangle
+* Marks and regions
+C-SPC            Set mark at point
+C-x C-x          Exchange point and mark
+M-h              Mark paragraph and move point to the beginning
+C-M-h            mark defun and move point to the beginning
+C-x C-p          Mark page and move point to the beginning
+C-x h            Mark whole buffer and move point to the begining
+C-x C-u          Upcase region
+C-x C-x          Move to another end of the region
+M-@              Mark word w/o moving point
+C-M-@            Mark expression w/o moving point
+C-x TAB          Indent region
+M-%              Replace text in region
+C-X C-SPC        Pop global mark
+C-SPC C-PAC      Push mark onto mark ring
+C-u C-SPC        Jump to the last mark stored in mark ring
+
+* Register
+C-x r SPC r      Record current point in register r
+C-x r j r        Jump to the point saved in register r
+C-x r s r        Copy region into register r
+C-x r i r        Insert text from register r
+C-x r + r        Append text to register r
+C-u C-x r s r    Move the region into register r
+
+C-x r r r        Copy rectangle into register r
+C-x r i r        Insert rectangle from register r
+
+C-x r w r        Save windows's config in register r
+C-X r f r        Save frame's config in register r
+C-x r j r        Restore a window's or frame's config
+
+C-u number C-x r n r
+                 Store number into register r
+C-u number C-x r + r
+                 Increment number in register r
+C-x r i r        Insert number from register r
+
+C-x C-k x r      Store the last keyboard macro int register r
+C-x r j r        Execute the keyboard macro in register r
+
+M-x view-register
+                 Displavy register
+
+* Bookmark
+C-x r m          Set bookmark for the visited file, at point
+C-x r m bm       Set bookmark named bm at point
+C-x r M bm       Like C-x rm, w/o overwrite an existing bookmrk
+C-x r b bm       Jump to the bookmark named bm
+C-x r l          List all bookmarks
+
+M-X bookmark-save
+                 Save all the current bookmark values in default fill
+M-X bookmark-load RET fn RET
+                 Load a list of bookmark value from the file fn
+M-X bookmark-write RET fn RET
+                 Save all bookmark values in the file fn
+M-X bookmark-delete RET bm RET
+                 Delete the bookmark named bm
+M-X bookmark-insert-location RET bm RET
+                 Insert the name of the file that bm points to
+M-X bookmark-insert RET bm RET
+                 Insert the content of the file that bm points to
+
+* Windows
+C-x 0            Delete the selected window
+C-x 1            Delete other windows
+C-x 2            Split the selected window vertically
+C-x 3            Split the selected window horizontally
+C-x 4 0          Delete the selected window and the buffer
+C-M-v            Scroll the next window
+C-x +            Blance widows
+C-x -            Shrink this windows if larger than buffer
+C-x }            Enlarge window horizontally
+C-x {            Shrink window horizontally
+
+C-c w            hydra-windows manipulate
+
+C-x w            Ace-window
+C-x w ?          Ace-window help
+
+* Buffer
+C-x d            Kill current buffer
+C-x k            Interactively kill buffer
+
+C-x b            Select or create a buffer
+C-x 4 b          Select or create  buffer in another window
+C-x C-b          ibuffer
+
+M-x rename-buffer
+                 Rename current buffer
+M-x rename-uniquely
+                 Rename currrent buffer by adding number
+M-x kill-some-buffers
+                 Kill each buffer
+
+* Searching and replacement
+C-s              Search via Swiper
+C-s str M-q      Replace str from Swiper
+C-r              isearch backward
+
+M-%              Query replacement
+C-M-%            Query replacement for regexp
+
+M-X replace-string RET str RET newstr
+                 Replace every occurremce of str with newstr
+M-X replace-regexp RET regexp RET newstr RET
+                 Replace every match for regexp with newstr
+C-u C-SPC        Move back to the position where replacement starts
+
+* Moving around
+C-a              Move to the begining of line
+C-e              Move to the end of line
+M-m              Move to the head of line (except whitespace)
+M-a              Move to the head of sentence
+M-e              Move to the end of sentence
+M-{              Move to the begining of paragraph
+M-}              Move to the end of paragraph
+M-<              Move to the begining of buffer
+M->              Move to the end of buffer
+
+C-M-a            Move to the begining of defun
+C-M-e            Move to the end of defun
+C-M-b            Move to the begining of s-expression
+C-M-f            Move to the end of S-expression
+
+M-g c            Move to nth character
+M-g g            Move to nth line
+M-g n            Move to next error
+M-g p            Move to previous error
+M-g TAB          Move To nth column
+
+C-l              Recenter
+C-v              Down page
+M-v              Up page
+C-M-v            Down page in other window
+C-M-S-v          Up page in other window
+
+* Editing
+C-t              Transpose Chars
+M-t              Transpose words
+C-M-t            Transpose S-expression
+C-x C-t          Transpose lines
+
+M-c              Capitalize word
+M-u              Convert word to uppercase
+M-l              Convert word to lowercase
+
+* Macros
+C-x (            Start macro
+C-x )            End macro
+C-x e            End macro and call
+C-x C-k r        Apply to region or line
+
+* Org
+C-c C-,          Insert structure template
+C-c C-q          Set a tag on a heading
+
+M-RET            Insert a new heading, item or row
+C-u M-RET        Insert a new heading at the end of current subtree
+C-RET            Insert a new heading at the end of current subtree
+
+M-S-LEFT         Promt current heading
+M-S-RIGHT        Demote current heading
+
+M-UP             Move subtree up
+M-DOWN           Move subtree down
+
+C-c @            Mark subtree at point
+
+C-c C-x C-w      Kill subtree
+C-c C-x M-w      Copy subtree
+C-c C-x C-y      Yank subtree
+
+C-c *            Turn a normal line or plain list into a headline
+
+C-x n s          Narrow bufer to current subtree
+C-x n b          Narrow buffer to current block
+C-x n e          Narrow buffer to current element
+C-x n w          Widen buffer to remive narrowing
+
+M-S-return       Inser a todo-heading or a checkbox-heading
+C-u C-c C-c      Insert an empty checkbox in a plain list
+C-c C-c          Toggle checkbox status
+C-c #            Update statistic of checkbox
+** Tips
+Tweak org-emphasis-alist for hightlight style
+
+#+BEGIN_SRC emacs-lisp
+(setq org-emphasis-alist
+  '(("*" (bold :foreground "Orange" ))
+    ("/" italic)
+    ("_" underline)
+    ("=" (:background "maroon" :foreground "white"))
+    ("~" (:background "deep sky blue" :foreground "MidnightBlue"))
+    ("+" (:strike-through t))))
+#+END_SRC
+
+* Troubleshooting
+C-h l            List recent keystrokes and their effects
+
+M-x profiler-start
+M-x profiler-report
+M-x profiler-stop
+                 Check CPU/MEM usage
+
+M-x toggle-debug-on-error
+M-x toggle-debug-on-quite
