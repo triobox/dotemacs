@@ -139,7 +139,8 @@
   )
 
 (use-package ivy-xref
-  :ensure t
+  ;; :ensure t
+  :defer t
   :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 (provide 'init-ivy)
