@@ -11,6 +11,7 @@
   :init
   (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
   (add-hook 'lisp-mode-hook 'lispy-mode)
+  (add-hook 'scheme-mode-hook 'lispy-mode)
   :config
   (setq lispy-avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m)))
 

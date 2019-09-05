@@ -77,7 +77,7 @@
   (require 'init-org)
   (require 'init-magit)
   (require 'init-projectile)
-  (require 'init-paredit)
+  ;; (require 'init-paredit)
   (require 'init-theme)
   (require 'init-whichkey)
   ;; (require 'init-workgroups2)
@@ -86,6 +86,7 @@
   ;; (require 'init-epa)
   (require 'init-javascript)
 
+  (require 'init-scheme)
   (require 'init-key-binding)
   (require 'init-misc)
 

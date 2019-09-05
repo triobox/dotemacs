@@ -231,6 +231,22 @@
   :defer t)
 
 ;; ------------------------------------------------------------------------
+;; org-babel config
+
+(setq geiser-default-implementation 'chez)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((scheme . t)
+   (emacs-lisp . t)
+   (js . t)
+   (lisp . t)
+   (python . t)
+   ;; (C . t)
+   ;; (sh . t)
+   ))
+
+;; ------------------------------------------------------------------------
 (defhydra hydra-org (:color blue :columns 3)
   "
       org-mode:
