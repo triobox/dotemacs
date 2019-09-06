@@ -18,18 +18,20 @@
         (beginning-of-line)
       (outline-previous-heading))))
 
+
 ;; ------------------------------------------------------------------------
 (use-package org			;org-mode
-  ;:ensure nil
+					;:ensure nil
   ;; :commands (orgtbl-mode)
   :mode (("\\.txt\\'" . org-mode)
 	 (".*/[0-9]*$" . org-mode))
   :bind (("C-c o" . hydra-org/body)
-	 ("C-c l" . org-store-link)
+	 ;; ("C-c l" . org-store-link)
 	 ;; ("C-c L" . org-insert-link-global)
 	 ("C-c a" . org-agenda)
 	 ;; ("C-c b" . org-goto-header)
-	 ("C-c c" . org-capture))
+	 ("C-c c" . org-capture)
+	 ("C-c s" . hydra-src-block/body))
   :init
   (progn)
   :config
@@ -96,7 +98,86 @@
     ;; Teleport heading
     (add-to-list 'org-speed-commands-user (cons "T" 'avy-org-refile-as-child))
 
+       ))
+
+;; ------------------------------------------------------------------------
+;; org-babel config
+(setq geiser-default-implementation 'chez)
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((scheme . t)
+    (emacs-lisp . t)
+    (js . t)
+    (lisp . t)
+    (python . t)
+    ;; (C . t)
+    ;; (sh . t)
     ))
+
+; language recognition for #+begin_src blocks
+(setq org-src-lang-modes
+      '(("e" . emacs-lisp)
+	("l" . lisp)
+        ;; ("dot" . graphviz-dot)
+        ;; ("shell" . sh)
+        ("p" . python)
+        ;; ("ruby" . ruby)
+        ;; ("yaml" . yaml)
+        ;; ("json" . json)
+        ;; ("java" . java)
+        ("j" . js)
+        ;; ("c" . c)
+        ;; ("sql" . sql)
+        ("s" . scheme)
+        ;; ("exlixir" . elixir)
+	))
+
+(defun my/org-src-block ()
+  "Better src block completion experience"
+  (interactive)
+  (org-insert-structure-template
+   (concat "src " (completing-read "Source type: " org-src-lang-modes)))
+  (org-edit-src-code)
+  )
+
+;; (define-key org-mode-map (kbd "C-c s") 'my/org-src-block)
+(defun my/org-src-block-scheme ()
+  (interactive)
+  (org-insert-structure-template  "src scheme")
+  (org-edit-src-code))
+
+(defun my/org-src-block-elisp ()
+  (interactive)
+  (org-insert-structure-template  "src emacs-lisp")
+  (org-edit-src-code))
+
+(defun my/org-src-block-lisp ()
+  (interactive)
+  (org-insert-structure-template  "src lisp")
+  (org-edit-src-code))
+
+(defun my/org-src-block-python ()
+  (interactive)
+  (org-insert-structure-template  "src python")
+  (org-edit-src-code))
+
+(defun my/org-src-block-javascript ()
+  (interactive)
+  (org-insert-structure-template  "src js")
+  (org-edit-src-code))
+
+(defhydra hydra-src-block (:color blue :columns 3)
+  "Insert & edit src block:"
+  ("e" my/org-src-block-elisp "elisp")
+  ("l" my/org-src-block-lisp "lisp")
+  ("j" my/org-src-block-javascript "javascript")
+  ("p" my/org-src-block-python "python")
+  ("s" my/org-src-block-scheme "scheme")
+
+  ("q" nil "quit" :color red)
+  )
+
 
 ;; ------------------------------------------------------------------------
 (use-package org-bullets
@@ -226,32 +307,15 @@
     ))
 
 ;; ------------------------------------------------------------------------
-(use-package org-tempo
-  :ensure nil
-  :defer t)
-
-;; ------------------------------------------------------------------------
-;; org-babel config
-
-(setq geiser-default-implementation 'chez)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((scheme . t)
-   (emacs-lisp . t)
-   (js . t)
-   (lisp . t)
-   (python . t)
-   ;; (C . t)
-   ;; (sh . t)
-   ))
+;; (use-package org-tempo
+;;   :ensure nil
+;;   :defer t)
 
 ;; ------------------------------------------------------------------------
 (defhydra hydra-org (:color blue :columns 3)
   "
       org-mode:
   "
-
   ("a" hydra-archive/body "archive")
   ("c" hydra-clock/body "clock")
   ("d" org-decrypt-entry "decrypt-entry")
