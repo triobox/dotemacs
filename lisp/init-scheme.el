@@ -18,8 +18,7 @@
 (use-package geiser
   :defer t
   :commands run-geiser
-  :bind (:map scheme-mode-map
-	      ("C-c e" . hydra-scheme/body))
+  :bind (("C-c e" . hydra-scheme/body))
   :init
   (progn
     (setq geiser-active-implementations '(chez))
