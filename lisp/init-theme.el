@@ -3,8 +3,8 @@
 ;;; Code:
 
  ;; (require 'color-theme-modern)
-(require 'smart-mode-line)
-(require 'solarized-theme)
+(use-package smart-mode-line)
+(use-package solarized-theme)
 
 (setq my-dark-theme       'solarized-dark
       my-dark-theme-sml   'respectful
@@ -16,20 +16,18 @@
 (setq sml/no-confirm-load-theme t)
 
 (defun toggle-night-color-theme ()
-  "Switch to/from night color scheme, including shell theme, for presentation mode."
+  "Switch to/from night color scheme"
   (interactive)
   (if (eq (frame-parameter (next-frame) 'background-mode) 'light)
       (progn
         (load-theme my-dark-theme nil nil)
         ;; (if *linux*
-        ;;     ;; (shell-command "~/gnome-terminal-colors-solarized/install.sh -s dark -p default" nil nil)
-	;;     )
+        ;;    (do-somthing))
         (setq sml/theme my-dark-theme-sml)
 	)
     (load-theme my-light-theme nil nil)
     ;; (if *linux*
-    ;;     ;; (shell-command "~/gnome-terminal-colors-solarized/install.sh -s light -p default" nil nil)
-    ;; 	)
+    ;;     (do-somthing))
     (setq sml/theme my-light-theme-sml)
     )
   (sml/setup)
@@ -39,17 +37,16 @@
 (global-set-key (kbd "<f7>") 'toggle-night-color-theme)
 
 
-
 (setq sml/theme           my-light-theme-sml
       sml/shorten-modes   t
       sml/mode-width      'full
       sml/name-width      25
-      sml/hidden-modes    '(" hl-p" " Undo-Tree" " Guide" " pair" " ARev" " GitGutter" " fs" " ElDoc" " WS" " Fly" " Abbrev" " Gtags" " Wrap" " AC" " ivy"))
+      sml/hidden-modes    '(" Undo-Tree" " pair" " ARev" " GitGutter" " fs" " ElDoc" " WS" " Fly" " Abbrev" " Gtags" " Wrap" " AC" " ivy"))
 
 (add-to-list 'sml/replacer-regexp-list '("^/repos/" ":Repo:"))
 
 (if *linux*
-    (setq sml/theme  my-dark-theme)
+    (setq sml/theme  my-dark-theme-sml)
  )
 
 (sml/setup)
