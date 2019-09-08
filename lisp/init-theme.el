@@ -2,52 +2,57 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package tango-plus-theme
-  :defer t)
+ ;; (require 'color-theme-modern)
+(require 'smart-mode-line)
+(require 'solarized-theme)
 
-(use-package solarized-theme
-  :init
-  ;; make the fringe stand out from the background
-  (setq solarized-distinct-fringe-background t)
-  (setq solarized-use-variable-pitch t)
-  (setq solarized-high-contrast-mode-line t)
-  (setq solarized-use-more-italic t)
-  (setq solarized-scale-org-headlines t)
-  :config
-  ;; (load-theme 'solarized-dark t)
+(setq my-dark-theme       'solarized-dark
+      my-dark-theme-sml   'respectful
+      my-light-theme      'solarized-light
+      ;; my-light-theme      'tango-plus
+      my-light-theme-sml  'automatic)
+
+;; Workaround for confirmation of loading theme
+(setq sml/no-confirm-load-theme t)
+
+(defun toggle-night-color-theme ()
+  "Switch to/from night color scheme, including shell theme, for presentation mode."
+  (interactive)
+  (if (eq (frame-parameter (next-frame) 'background-mode) 'light)
+      (progn
+        (load-theme my-dark-theme nil nil)
+        ;; (if *linux*
+        ;;     ;; (shell-command "~/gnome-terminal-colors-solarized/install.sh -s dark -p default" nil nil)
+	;;     )
+        (setq sml/theme my-dark-theme-sml)
+	)
+    (load-theme my-light-theme nil nil)
+    ;; (if *linux*
+    ;;     ;; (shell-command "~/gnome-terminal-colors-solarized/install.sh -s light -p default" nil nil)
+    ;; 	)
+    (setq sml/theme my-light-theme-sml)
+    )
+  (sml/setup)
   )
+
+;; Toggle between light and dark themes with F7
+(global-set-key (kbd "<f7>") 'toggle-night-color-theme)
+
+
+
+(setq sml/theme           my-light-theme-sml
+      sml/shorten-modes   t
+      sml/mode-width      'full
+      sml/name-width      25
+      sml/hidden-modes    '(" hl-p" " Undo-Tree" " Guide" " pair" " ARev" " GitGutter" " fs" " ElDoc" " WS" " Fly" " Abbrev" " Gtags" " Wrap" " AC" " ivy"))
+
+(add-to-list 'sml/replacer-regexp-list '("^/repos/" ":Repo:"))
 
 (if *linux*
-    (load-theme 'solarized-dark t)
-  (load-theme 'tango-plus t)
-  )
+    (setq sml/theme  my-dark-theme)
+ )
 
-
-;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(solarized-dark))
-
-;; Ensure that themes will be applied even if they have not been customized
-(defun reapply-themes ()
-  "Forcibly load the themes listed in `custom-enabled-themes'."
-  (dolist (theme custom-enabled-themes)
-    (unless (custom-theme-p theme)
-      (load-theme theme)))
-  (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
-
-;; (add-hook 'after-init-hook 'reapply-themes)
-
-(defun light ()
-  "Activate a light color theme."
-  (interactive)
-  (setq custom-enabled-themes '(solarized-light))
-  (reapply-themes))
-
-(defun dark ()
-  "Activate a dark color theme."
-  (interactive)
-  (setq custom-enabled-themes '(solarized-dark))
-  (reapply-themes))
+(sml/setup)
 
 (provide 'init-theme)
-
 ;;; init-theme.el ends here
