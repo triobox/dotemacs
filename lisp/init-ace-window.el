@@ -6,6 +6,7 @@
   :diminish (ace-window-mode . " AceW")
   :config
   (global-set-key (kbd "C-x w") 'ace-window)
+  (setq aw-minibuffer-flag t)
   (setq aw-dispatch-always t)
   ;; (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   ;; (defvar aw-dispatch-alist
@@ -15,7 +16,8 @@
   ;;     (?v aw-split-window-vert " Ace - Split Vert Window")
   ;;     (?b aw-split-window-horz " Ace - Split Horz Window")
   ;;     (?i delete-other-windows " Ace - Maximize Window")
-  ;;     (?o delete-other-windows))
+  ;;     (?o delete-other-windows)
+  ;;     (?? aw-show-dispatch-help))
   ;;   "List of actions for `aw-dispatch-default'.")
 
   )
