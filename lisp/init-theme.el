@@ -2,54 +2,66 @@
 ;;; Commentary:
 ;;; Code:
 
- ;; (require 'color-theme-modern)
-(use-package smart-mode-line)
-(use-package solarized-theme)
+;; (require 'color-theme-modern)
+
+
+(use-package solarized-theme
+  :init
+  ;; make the fringe stand out from the background
+  (setq solarized-distinct-fringe-background t)
+
+  ;; Don't change the font for some headings and titles
+  (setq solarized-use-variable-pitch nil)
+
+  (setq solarized-high-contrast-mode-line t)
+
+  ;; Use less bolding
+  (setq solarized-use-less-bold t)
+
+  ;; (setq solarized-use-more-italic t)
+
+  ;; Don't change size of org-mode headlines (but keep other size-changes)
+  (setq solarized-scale-org-headlines nil)
+
+  (setq x-underline-at-descent-line t)
+
+  ;; Avoid all font-size changes
+  (setq solarized-height-minus-1 1.0)
+  (setq solarized-height-plus-1 1.0)
+  (setq solarized-height-plus-2 1.0)
+  (setq solarized-height-plus-3 1.0)
+  (setq solarized-height-plus-4 1.0)
+
+  ;; :config
+
+  )
 
 (setq my-dark-theme       'solarized-dark
-      my-dark-theme-sml   'respectful
-      my-light-theme      'solarized-light
-      ;; my-light-theme      'tango-plus
-      my-light-theme-sml  'automatic)
+      my-light-theme      'solarized-light)
 
-;; Workaround for confirmation of loading theme
-(setq sml/no-confirm-load-theme t)
+(if *linux*
+    (load-theme my-dark-theme t)
+  (load-theme my-light-theme t))
+
 
 (defun toggle-night-color-theme ()
   "Switch to/from night color scheme"
   (interactive)
   (if (eq (frame-parameter (next-frame) 'background-mode) 'light)
       (progn
-        (load-theme my-dark-theme nil nil)
+        (load-theme my-dark-theme t)
         ;; (if *linux*
         ;;    (do-somthing))
-        (setq sml/theme my-dark-theme-sml)
 	)
-    (load-theme my-light-theme nil nil)
+    (load-theme my-light-theme t)
     ;; (if *linux*
     ;;     (do-somthing))
-    (setq sml/theme my-light-theme-sml)
     )
-  (sml/setup)
   )
 
 ;; Toggle between light and dark themes with F7
 (global-set-key (kbd "<f7>") 'toggle-night-color-theme)
 
-
-(setq sml/theme           my-light-theme-sml
-      sml/shorten-modes   t
-      sml/mode-width      'full
-      sml/name-width      25
-      sml/hidden-modes    '(" Undo-Tree" " pair" " ARev" " GitGutter" " fs" " ElDoc" " WS" " Fly" " Abbrev" " Gtags" " Wrap" " AC" " ivy"))
-
-(add-to-list 'sml/replacer-regexp-list '("^/repos/" ":Repo:"))
-
-(if *linux*
-    (setq sml/theme  my-dark-theme-sml)
- )
-
-(sml/setup)
 
 (provide 'init-theme)
 ;;; init-theme.el ends here
