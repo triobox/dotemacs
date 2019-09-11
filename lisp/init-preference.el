@@ -14,9 +14,9 @@
   (global-hl-line-mode -1)
   )
 
-(line-number-mode -1) ; display line number in mode line
-(column-number-mode -1) ; display colum number in mode line
-;; (setq show-paren-delay 0) ; Show matching parens
+(line-number-mode 1) ; display line number in mode line
+(column-number-mode 1) ; display colum number in mode line
+(setq show-paren-delay 0) ; Show matching parens
 (show-paren-mode 1) ; highlight delimiters
 ;; (save-place-mode) ; save cursor position between sessions
 
@@ -28,6 +28,7 @@
 
 (setq inhibit-compacting-font-caches t)
 
+(global-display-line-numbers-mode -1)
 
 ;; editor behavior
 (setq ring-bell-function 'ignore)
@@ -96,14 +97,15 @@
 (global-prettify-symbols-mode t)
 
 ;; Font and Frame Size
-(add-to-list 'default-frame-alist '(height . 44))
+(add-to-list 'default-frame-alist '(height . 42))
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Setting English Font
 (if *win64*
-    (set-face-attribute 'default nil :font "Consolas 10")
- (set-face-attribute 'default nil :font "Monaco 10")
-)
+    ;; (set-face-attribute 'default nil :font "Consolas 10")
+    (set-face-attribute 'default nil :font "Monaco 10")
+  (set-face-attribute 'default nil :font "Monaco 10")
+  )
 
 ;; Chinese Font
 (dolist (charset '(kana han symbol cjk-misc bopomofo))

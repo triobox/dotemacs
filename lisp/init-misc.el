@@ -26,8 +26,8 @@
   :ensure nil
   :config
   ; display-line-numbers-mode only available in *emacs26*
-  (if *emacs26*
-      (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+  ;; (if *emacs26*
+  ;;     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
   ; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (global-prettify-symbols-mode))
 
