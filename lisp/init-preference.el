@@ -82,7 +82,7 @@
 ;; containing personal settings
 (setq local-file (expand-file-name "local.el" user-emacs-directory))
 
-q
+
 ;; (prefer-coding-system 'utf-8)
 ;; (setq conding-system-for-read 'utf-8)
 ;; (setq conding-system-for-write 'utf-8)
