@@ -76,13 +76,13 @@
       '((".*" "~/.emacs.d/auto-save-list/" t)))
 
 ;; make emacs adding customised settings to custom.el
-(setq custom-file (expand-file-name "emacs-custom" user-emacs-directory))
+(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
 
 ;; allow users to provide an optional "local.el"
 ;; containing personal settings
 (setq local-file (expand-file-name "local.el" user-emacs-directory))
 
-
+q
 ;; (prefer-coding-system 'utf-8)
 ;; (setq conding-system-for-read 'utf-8)
 ;; (setq conding-system-for-write 'utf-8)

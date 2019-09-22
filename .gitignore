@@ -9,6 +9,7 @@ recentf
 *.swp
 *#
 *.backup.el
+*.backup
 *emacs.desktop
 *emacs.desktop.lock
 *.backup
@@ -16,6 +17,8 @@ recentf
 *.workgroups
 places
 emacs-custom
+emacs-custom.el
+local.el
 test/
 anaconda-mode/
 server/
