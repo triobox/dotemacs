@@ -96,30 +96,6 @@
 ;; use fancy lambdas
 (global-prettify-symbols-mode t)
 
-;; Font and Frame Size
-(add-to-list 'default-frame-alist '(height . 42))
-(add-to-list 'default-frame-alist '(width . 80))
-
-;; Setting English Font
-(if *win64*
-    ;; (set-face-attribute 'default nil :font "Consolas 10")
-    (set-face-attribute 'default nil :font "Monaco 10")
-  (set-face-attribute 'default nil :font "Monaco 10")
-  )
-
-;; Chinese Font
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font (frame-parameter nil 'font)
-                    charset
-                    (if *win64*
-                        (font-spec :family "Microsoft YaHei" :size 13)
-                      (font-spec :family "WenQuanYi Zen Hei Mono" :size- 13)
-                      )
-                    ))
-
-;; (setq custom-file (make-temp-file "emacs-custom"))
-;; (setq custom-file (concat user-emacs-directory "custom-set-variables.el"))
-;; (load custom-file 'noerror)
 
 (provide 'init-preference)
 ;;; init-preference.el ends here
