@@ -36,8 +36,10 @@
 
   )
 
+(use-package github-modern-theme)
+
 (setq my-dark-theme       'solarized-dark
-      my-light-theme      'solarized-light)
+      my-light-theme      'github-modern)
 
 (if *linux*
     (load-theme my-dark-theme t)
