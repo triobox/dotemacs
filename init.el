@@ -100,8 +100,8 @@
   ;; Allow users to provide an optional "init-local"
   ;; containing personal settings
   ;; (require 'init-local nil t)
-  ;; (when (file-exists-p local-file)
-  ;;   (load local-file))
+  (when (file-exists-p local-file)
+    (load local-file))
 
   )
 
