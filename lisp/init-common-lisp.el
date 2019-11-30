@@ -11,7 +11,7 @@
     (when *linux*
       (setq inferior-lisp-program "/usr/bin/sbcl"))
     (when *win64*
-      (setq inferior-lisp-program "d:/Program/sbcl/sbcl.exe"))
+      (setq inferior-lisp-program "sbcl.exe"))
     )
 
   :config
@@ -20,25 +20,24 @@
   (setq slime-net-coding-system 'utf-8-unix)
   (setq slime-complete-symbol*-fancy t)
   (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-
-  (use-package hippie-expand-slime :ensure t)
-  (use-package slime-company :ensure t)
-
   )
+
+(use-package hippie-expand-slime :defer t)
+(use-package slime-company :defer t)
 
 ;;; REPL
 
 (defun sanityinc/slime-repl-setup ()
   "Mode setup function for slime REPL."
-  (enable-paredit-mode)
+  ;; (enable-paredit-mode)
   (rainbow-delimiters-mode t)
   (set-up-slime-hippie-expand)
   (setq show-trailing-whitespace nil))
 
 (after-load 'slime-repl
   ;; Stop SLIME's REPL from grabbing DEL, which is annoying when backspacing over a '('
-  (after-load 'paredit
-    (define-key slime-repl-mode-map (read-kbd-macro paredit-backward-delete-key) nil))
+  ;; (after-load 'paredit
+  ;;   (define-key slime-repl-mode-map (read-kbd-macro paredit-backward-delete-key) nil))
 
   ;; Bind TAB to `indent-for-tab-command', as in regular Slime buffers.
   (define-key slime-repl-mode-map (kbd "TAB") 'indent-for-tab-command)
