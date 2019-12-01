@@ -41,9 +41,6 @@
 (setq my-dark-theme       'solarized-dark
       my-light-theme      'github-modern)
 
-(if *linux*
-    (load-theme my-dark-theme t)
-  (load-theme my-light-theme t))
 
 
 (defun toggle-night-color-theme ()
@@ -61,8 +58,15 @@
     )
   )
 
-;; Toggle between light and dark themes with F7
-(global-set-key (kbd "<f7>") 'toggle-night-color-theme)
+(if (display-graphic-p)
+    (progn
+      (if *linux*
+	  (load-theme my-dark-theme t)
+	(load-theme my-light-theme t))
+      ;; Toggle between light and dark themes with F7
+      (global-set-key (kbd "<f7>") 'toggle-night-color-theme)
+      )
+  )
 
 
 (provide 'init-theme)

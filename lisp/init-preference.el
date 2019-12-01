@@ -11,7 +11,8 @@
       (menu-bar-mode   -1)
       (global-hl-line-mode 1)
       )
-  (global-hl-line-mode -1)
+  (global-hl-line-mode 1)
+  (menu-bar-mode -1)
   )
 
 (line-number-mode 1) ; display line number in mode line
