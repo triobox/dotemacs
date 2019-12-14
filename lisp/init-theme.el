@@ -36,12 +36,15 @@
 
   )
 
-(use-package github-modern-theme)
+(use-package mac-classic-theme
+  :load-path "site-lisp")
+
+;; (use-package github-modern-theme)
 
 (setq my-dark-theme       'solarized-dark
-      my-light-theme      'github-modern)
-
-
+      ;; my-light-theme      'github-modern
+      my-light-theme 'mac-classic
+      )
 
 (defun toggle-night-color-theme ()
   "Switch to/from night color scheme"
