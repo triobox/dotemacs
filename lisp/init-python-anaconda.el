@@ -127,10 +127,11 @@
 (use-package conda
     :defer t
     :init
-    (custom-set-variables '(conda-anaconda-home "~/miniconda3"))
+    ;; add bellow into local.el
+    ;; (custom-set-variables '(conda-anaconda-home "~/miniconda3"))
     :config
-    (conda-env-initialize-interactive-shells)
-    ;; (conda-env-initialize-eshell)
+    ;; (conda-env-initialize-interactive-shells)
+    (conda-env-initialize-eshell)
     (conda-env-autoactivate-mode t)
     (setq-default mode-line-format
                   (cons '(:exec conda-env-current-name) mode-line-format)))
