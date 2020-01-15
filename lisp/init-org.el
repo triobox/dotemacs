@@ -10,20 +10,6 @@
 ;; (define-key global-map "\C-ca" 'org-agenda)
 ;; (define-key global-map "\C-cc" 'org-capture)
 
-;; a couple of short-cut keys to make it easier to edit text.
-(defun org-text-bold ()
-  "Wraps the region with asterisks."
-  (interactive)
-  (surround-text "*"))
-(defun org-text-italics ()
-  "Wraps the region with slashes."
-  (interactive)
-  (surround-text "/"))
-(defun org-text-code ()
-  "Wraps the region with equal signs."
-  (interactive)
-  (surround-text "="))
-
 (defun org-goto-header ()
   "Goes to the beginning of an element's header, so that you can execute speed commands."
   (interactive)
@@ -32,9 +18,10 @@
         (beginning-of-line)
       (outline-previous-heading))))
 
+
 ;; ------------------------------------------------------------------------
 (use-package org			;org-mode
-  :ensure nil
+					;:ensure nil
   ;; :commands (orgtbl-mode)
   :mode (("\\.txt\\'" . org-mode)
 	 (".*/[0-9]*$" . org-mode))
@@ -42,9 +29,9 @@
 	 ;; ("C-c l" . org-store-link)
 	 ;; ("C-c L" . org-insert-link-global)
 	 ("C-c a" . org-agenda)
-	 ("C-c b" . org-goto-header)
+	 ;; ("C-c b" . org-goto-header)
 	 ("C-c c" . org-capture)
-	 )
+	 ("C-c s" . hydra-src-block/body))
   :init
   (progn)
   :config
@@ -52,17 +39,8 @@
     (bind-keys :map org-mode-map
 	       ("C-c ." . org-time-stamp)
 	       ("C-c !" . org-time-stamp-inactive)
-	       ("A-b" . (surround-text-with "+"))
-	       ("s-b" . (surround-text-with "*"))
-	       ("A-i" . (surround-text-with "/"))
-	       ("s-i" . (surround-text-with "/"))
-	       ("A-=" . (surround-text-with "="))
-	       ("s-=" . (surround-text-with "="))
-	       ("A-`" . (surround-text-with "~"))
-	       ("s-`" . (surround-text-with "~"))
 	       ("C-s-f" . forward-sentence)
 	       ("C-s-b" . backward-sentence))
-
 
     (setq
      org-startup-indented t
@@ -120,17 +98,96 @@
     ;; Teleport heading
     (add-to-list 'org-speed-commands-user (cons "T" 'avy-org-refile-as-child))
 
-    )
+       ))
 
+;; ------------------------------------------------------------------------
+;; org-babel config
+(setq geiser-default-implementation 'chez)
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((scheme . t)
+    (emacs-lisp . t)
+    (js . t)
+    (lisp . t)
+    (python . t)
+    ;; (C . t)
+    ;; (sh . t)
+    ))
+
+; language recognition for #+begin_src blocks
+(setq org-src-lang-modes
+      '(("e" . emacs-lisp)
+	("l" . lisp)
+        ;; ("dot" . graphviz-dot)
+        ;; ("shell" . sh)
+        ("p" . python)
+        ;; ("ruby" . ruby)
+        ;; ("yaml" . yaml)
+        ;; ("json" . json)
+        ;; ("java" . java)
+        ("j" . js)
+        ;; ("c" . c)
+        ;; ("sql" . sql)
+        ("s" . scheme)
+        ;; ("exlixir" . elixir)
+	))
+
+(defun my/org-src-block ()
+  "Better src block completion experience"
+  (interactive)
+  (org-insert-structure-template
+   (concat "src " (completing-read "Source type: " org-src-lang-modes)))
+  (org-edit-src-code)
   )
+
+;; (define-key org-mode-map (kbd "C-c s") 'my/org-src-block)
+(defun my/org-src-block-scheme ()
+  (interactive)
+  (org-insert-structure-template  "src scheme")
+  (org-edit-src-code))
+
+(defun my/org-src-block-elisp ()
+  (interactive)
+  (org-insert-structure-template  "src emacs-lisp")
+  (org-edit-src-code))
+
+(defun my/org-src-block-lisp ()
+  (interactive)
+  (org-insert-structure-template  "src lisp")
+  (org-edit-src-code))
+
+(defun my/org-src-block-python ()
+  (interactive)
+  (org-insert-structure-template  "src python")
+  (org-edit-src-code))
+
+(defun my/org-src-block-javascript ()
+  (interactive)
+  (org-insert-structure-template  "src js")
+  (org-edit-src-code))
+
+(defhydra hydra-src-block (:color blue :columns 3)
+  "Insert & edit src block:"
+  ("e" my/org-src-block-elisp "elisp")
+  ("l" my/org-src-block-lisp "lisp")
+  ("j" my/org-src-block-javascript "javascript")
+  ("p" my/org-src-block-python "python")
+  ("s" my/org-src-block-scheme "scheme")
+
+  ("q" nil "quit" :color red)
+  )
+
 
 ;; ------------------------------------------------------------------------
 (use-package org-bullets
-  :if *unix* 				; not work well in windows
   :init
-  (add-hook 'org-mode-hook 'org-bullets-mode))
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;; (setq org-bullets-bullet-list '("☉" "☆" "○" "□" "◇" "◦"))
+  (setq org-bullets-bullet-list '("■" "★" "●"  "◆" "•" "∙"))
+  )
 
-;; ------------------------------------------------------------------------
+;; ----------------------------------------------------------------
 
 ;; (use-package ox-clip
 ;;   ;; :ensure nil
@@ -147,30 +204,30 @@
     (setq org-capture-templates
 	  (quote (("t" "todo" entry
 		   (file "") ;; => `org-default-notes-file'
-		   "* TODO %?\n%U\n%a\n" :clock-in t :empty-lines 1)
+		   "** TODO %?\n%U\n%a\n" :clock-in t :empty-lines 1)
 		  ("r" "respond" entry
 		   (file "")
-		   "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :immediate-finish t :empty-lines 1)
+		   "** NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :immediate-finish t :empty-lines 1)
 		  ("n" "note" entry
 		   (file "")
-		   "* NOTE %?\n%U\n%a\n" :clock-in t :empty-lines 1)
+		   "** NOTE %?\n%U\n%a\n" :clock-in t :empty-lines 1)
 		  ;; ("n" "note" entry (file "")
 		  ;;  "* %?\n\n  %i\n\n  see: %a" :clock-in t :clock-resume t :empty-lines 1)
 		  ("j" "journal" entry
 		   (file+olp+datetree "~/org/diary.org")
-		   "* %?\n%U\n" :clock-in t :empty-lines 1)
+		   "** %?\n%U\n" :clock-in t :empty-lines 1)
 		  ("w" "org-protocol"
 		   entry (file "")
-		   "* TODO Review %c\n%U\n" :immediate-finish t :empty-lines 1)
+		   "** TODO Review %c\n%U\n" :immediate-finish t :empty-lines 1)
 		  ("m" "meeting" entry
 		   (file "")
-		   "* MEETING with %? :MEETING:\n%U" :clock-in t :empty-lines 1)
+		   "** MEETING with %? :MEETING:\n%U" :clock-in t :empty-lines 1)
 		  ("p" "phone call" entry
 		   (file "")
-		   "* PHONE %? :PHONE:\n%U" :clock-in t :empty-lines 1)
+		   "** PHONE %? :PHONE:\n%U" :clock-in t :empty-lines 1)
 		  ("h" "habit" entry
 		   (file "")
-		   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+		   "** NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
     )
   :config
   (progn
@@ -234,6 +291,7 @@
 ;; ------------------------------------------------------------------------
 (use-package org-crypt
   :ensure nil
+  :defer 1
   :config
   (progn
     ;; encrypt before save file
@@ -249,20 +307,28 @@
     ))
 
 ;; ------------------------------------------------------------------------
+;; (use-package org-tempo
+;;   :ensure nil
+;;   :defer t)
+
+;; ------------------------------------------------------------------------
 (defhydra hydra-org (:color blue :columns 3)
   "
       org-mode:
   "
-
   ("a" hydra-archive/body "archive")
   ("c" hydra-clock/body "clock")
   ("d" org-decrypt-entry "decrypt-entry")
   ("D" org-decrypt-entries "decrypt-entries")
   ("e" org-encrypt-entry "encrypt-entry")
   ("E" org-encrypt-entries "encrypt-entries")
-  ("x" hydra-ox/body "export")
+
+  ("m" org-emphasize "emphasize")
+  ;; ("x" hydra-ox/body "export")
+  ("x" org-export-dispatch "export")
   ("k" org-cut-subtree "cut-subtree")
   ("l" org-insert-link-global "insert-link")
+  ("L" org-toggle-link-display "display-link")
   ("g" org-set-tags "set-tags")
   ("o" org-open-at-point-global "open-link")
   ("r" org-refile "refile")

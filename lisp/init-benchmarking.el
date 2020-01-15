@@ -23,7 +23,8 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
                        (list feature require-start-time time)
                        t))))))
 
-(advice-add 'require :around 'sanityinc/require-times-wrapper)
+;; (advice-add 'require :around 'sanityinc/require-times-wrapper)
+(advice-add 'use-package :around 'sanityinc/require-times-wrapper)
 
 
 (define-derived-mode sanityinc/require-times-mode tabulated-list-mode "Require-Times"

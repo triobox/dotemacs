@@ -26,8 +26,8 @@
   :ensure nil
   :config
   ; display-line-numbers-mode only available in *emacs26*
-  (if *emacs26*
-      (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+  ;; (if *emacs26*
+  ;;     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
   ; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (global-prettify-symbols-mode))
 
@@ -71,6 +71,7 @@
 (use-package ag :defer t)
 
 (use-package key-seq
+  :disabled t
   :after key-chord
   :config
   (key-seq-define-global "qb" #'counsel-bookmark)
@@ -83,19 +84,20 @@
   (key-seq-define-global "qg" #'magit-status))
 
 
-;; (use-package dashboard
-;;   :preface
-;;   (defun my/dashboard-banner ()
-;;     "Set a dashboard banner including information on package initialization
-;;      time and garbage collections."
-;;     (setq dashboard-banner-logo-title
-;;           (format "Emacs ready in %.2f seconds with %d garbage collections."
-;;                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
-;;   :init
-;;   (add-hook 'after-init-hook 'dashboard-refresh-buffer)
-;;   (add-hook 'dashboard-mode-hook 'my/dashboard-banner)
-;;   :custom (dashboard-startup-banner 'logo)
-;;   :config (dashboard-setup-startup-hook))
+(use-package dashboard
+  :disabled t
+  :preface
+  (defun my/dashboard-banner ()
+    "Set a dashboard banner including information on package initialization
+     time and garbage collections."
+    (setq dashboard-banner-logo-title
+          (format "Emacs ready in %.2f seconds with %d garbage collections."
+                  (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
+  :init
+  (add-hook 'after-init-hook 'dashboard-refresh-buffer)
+  (add-hook 'dashboard-mode-hook 'my/dashboard-banner)
+  :custom (dashboard-startup-banner 'logo)
+  :config (dashboard-setup-startup-hook))
 
 (use-package browse-kill-ring
   :defer t

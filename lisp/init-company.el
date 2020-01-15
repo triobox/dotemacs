@@ -12,7 +12,10 @@
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (dolist (backend '(company-eclim company-semantic))
-     (delq backend company-backends))
+    (delq backend company-backends))
+
+  (eval-after-load "company"
+    '(add-to-list 'company-backends 'company-anaconda))
 
   (define-key company-mode-map (kbd "M-/") 'company-complete)
   (define-key company-active-map (kbd "M-/") 'company-other-backend)
@@ -20,7 +23,7 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
   (setq-default company-dabbrev-other-buffers 'all
-                  company-tooltip-align-annotations t)
+		company-tooltip-align-annotations t)
 
   ;; (global-set-key (kbd "M-C-/") 'company-complete)
   )

@@ -3,21 +3,36 @@
 ;;; Code:
 
 (use-package avy
-  :after key-seq
-  :commands (avy-goto-word-1
-             avy-goto-word-or-subword-1
-             avy-goto-char-in-line
-             avy-goto-line
-             avy-goto-char)
+  ;; :after key-seq
+  ;; :commands (avy-goto-word-1
+  ;;            avy-goto-word-or-subword-1
+  ;;            avy-goto-char-in-line
+  ;;            avy-goto-line
+  ;;            avy-goto-char)
+  :bind (("C-." . hydra-avy/body))
   :config
-  (setq avy-keys '(?a ?t ?u ?s ?i ?r ?e ?n ?p ?d ?l))
+  ;; (setq avy-keys '(?a ?t ?u ?s ?i ?r ?e ?n ?p ?d ?l))
   (setq avy-all-windows nil)
   (setq avy-styles-alist
         '((avy-goto-char-in-line . post)
           (avy-goto-word-or-subword-1 . post)
           (avy-goto-word-1 . pre)))
-)
+  )
 
+(defhydra hydra-avy (:color blue :columns 3)
+  "    avy  "
+  ("1" avy-goto-char "goto-char")
+  ("2" avy-goto-char-2 "goto-char-2")
+  ("l" avy-goto-line "goto-line")
+  ("e" avy-goto-end-of-line "goto-end-of-line")
+  ("c" avy-copy-line "copy-past-line")
+  ("C" avy-copy-region "copy-past-region" :color green)
+  ("d" avy-kill-whole-line "kill-line")
+  ("D" avy-kill-region "kill-region" :color green)
+  ("k" avy-kill-ring-save-whole-line "copy-line")
+  ("K" avy-kill-ring-save-region "copy-region" :color green)
+  ("q" nil "quit" :color red)
+  )
 
 (use-package counsel
   :after ivy
@@ -30,7 +45,7 @@
    ("C-c C-f" . counsel-git)
    ("C-c C-s" . counsel-git-grep)
    ("C-c /"   . counsel-ag)
-   ("C-c l"   . counsel-locate)
+   ("C-c C-l" . counsel-locate)
    ("C-h a"   . counsel-apropos)
    ("C-h b"   . counsel-descbinds)
    ("C-h f"   . counsel-describe-function)
@@ -90,16 +105,43 @@
   )
 
 
+(use-package ivy-hydra
+  :after (ivy)
+  :bind (("M-s i" . hydra-ivy/body))
+  )
+
+(use-package ivy-rich
+  :disabled t
+  :after (ivy)
+  ;; :custom
+  ;; (ivy-virtual-abbreviate 'full
+  ;;                         ivy-rich-switch-buffer-align-virtual-buffer t
+  ;;                         ivy-rich-path-style 'abbrev)
+  :config
+  (setq ivy-format-function #'ivy-format-function-line)
+
+  (ivy-rich-mode 1)
+  ;; (ivy-set-display-transformer 'ivy-switch-buffer
+  ;;                              'ivy-rich-switch-buffer-transformer)
+  )
+
+
 (use-package swiper
   :after (ivy)
   :bind
-  (:map ivy-mode-map ("M-s /" . swiper-at-point))
+  (:map ivy-mode-map ("M-s /" . swiper-at-point)
+        ("C-s" . swiper))
   :config
   (defun swiper-at-point (sym)
     "use swiper to search for the symbol at point."
     (interactive (list (thing-at-point 'symbol)))
     (swiper sym))
   )
+
+(use-package ivy-xref
+  ;; :ensure t
+  :defer t
+  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 (provide 'init-ivy)
 ;;; init-ivy.el ends here

@@ -3,15 +3,22 @@
 ;;; Code:
 
 ;; minimal UI
-(scroll-bar-mode -1)
-(tool-bar-mode   -1)
-(tooltip-mode    -1)
-(menu-bar-mode   -1)
-(line-number-mode -1) ; display line number in mode line
-(column-number-mode -1) ; display colum number in mode line
-;; (setq show-paren-delay 0) ; Show matching parens
+(if (display-graphic-p)
+    (progn
+      (scroll-bar-mode -1)
+      (tool-bar-mode   -1)
+      (tooltip-mode    -1)
+      (menu-bar-mode   -1)
+      (global-hl-line-mode 1)
+      )
+  (global-hl-line-mode 1)
+  (menu-bar-mode -1)
+  )
+
+(line-number-mode 1) ; display line number in mode line
+(column-number-mode 1) ; display colum number in mode line
+(setq show-paren-delay 0) ; Show matching parens
 (show-paren-mode 1) ; highlight delimiters
-(global-hl-line-mode 1) ; Highlight the current line.
 ;; (save-place-mode) ; save cursor position between sessions
 
 ;; setup lines to wrap
@@ -19,6 +26,10 @@
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message "")
+
+(setq inhibit-compacting-font-caches t)
+
+(global-display-line-numbers-mode -1)
 
 ;; editor behavior
 (setq ring-bell-function 'ignore)
@@ -66,16 +77,19 @@
       '((".*" "~/.emacs.d/auto-save-list/" t)))
 
 ;; make emacs adding customised settings to custom.el
-(setq custom-file (expand-file-name "emacs-custom" user-emacs-directory))
+(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
 
 ;; allow users to provide an optional "local.el"
 ;; containing personal settings
 (setq local-file (expand-file-name "local.el" user-emacs-directory))
 
 
-(prefer-coding-system 'utf-8)
-(setq conding-system-for-read 'utf-8)
-(setq conding-system-for-write 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (setq conding-system-for-read 'utf-8)
+;; (setq conding-system-for-write 'utf-8)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
 
 ;; remove tailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -83,26 +97,6 @@
 ;; use fancy lambdas
 (global-prettify-symbols-mode t)
 
-;; Font and Frame Size
-(add-to-list 'default-frame-alist '(height . 40))
-(add-to-list 'default-frame-alist '(width . 80))
-
-;; Setting English Font
-(set-face-attribute
- 'default nil :font "Monaco 10")
-;; Chinese Font
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font (frame-parameter nil 'font)
-                    charset
-                    (if *win64*
-                        (font-spec :family "Microsoft YaHei" :size 13)
-                      (font-spec :family "WnQuanYi Zen Hei Mono" :size- 13)
-                      )
-                    ))
-
-;; (setq custom-file (make-temp-file "emacs-custom"))
-;; (setq custom-file (concat user-emacs-directory "custom-set-variables.el"))
-;; (load custom-file 'noerror)
 
 (provide 'init-preference)
 ;;; init-preference.el ends here

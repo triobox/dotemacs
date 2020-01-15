@@ -2,64 +2,75 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package doom-themes
-  ;; :config
-  ;; (load-theme 'doom-one t)
-  )
-
-(use-package sublime-themes
-  ;; :config
-  ;; (load-theme 'doom-one t)
-  )
+;; (require 'color-theme-modern)
 
 
 (use-package solarized-theme
-  :defer t
-  :config
+  :init
   ;; make the fringe stand out from the background
   (setq solarized-distinct-fringe-background t)
-  (setq solarized-use-variable-pitch t)
-  (setq solarized-high-contrast-mode-line t)
-  (setq solarized-use-more-italic t)
-  (setq solarized-scale-org-headlines t)
 
-  (defun solarized-no-background! ()
-    (interactive)
-    (set-face-background 'default "unspecified-bg"))
+  ;; Don't change the font for some headings and titles
+  (setq solarized-use-variable-pitch nil)
+
+  (setq solarized-high-contrast-mode-line t)
+
+  ;; Use less bolding
+  (setq solarized-use-less-bold t)
+
+  ;; (setq solarized-use-more-italic t)
+
+  ;; Don't change size of org-mode headlines (but keep other size-changes)
+  (setq solarized-scale-org-headlines nil)
+
+  (setq x-underline-at-descent-line t)
+
+  ;; Avoid all font-size changes
+  (setq solarized-height-minus-1 1.0)
+  (setq solarized-height-plus-1 1.0)
+  (setq solarized-height-plus-2 1.0)
+  (setq solarized-height-plus-3 1.0)
+  (setq solarized-height-plus-4 1.0)
+
+  ;; :config
+
   )
 
- (cond (*win64*
-         (load-theme 'leuven t))
-         (t
-         (load-theme 'solarized-dark t)
-         ;; (solarized-no-background!)
-	 ))
+(use-package mac-classic-theme
+  :load-path "site-lisp")
 
-;; If you don't customize it, this is the theme you get.
-;; (setq-default custom-enabled-themes '(solarized-dark))
+;; (use-package github-modern-theme)
 
-;; Ensure that themes will be applied even if they have not been customized
-(defun reapply-themes ()
-  "Forcibly load the themes listed in `custom-enabled-themes'."
-  (dolist (theme custom-enabled-themes)
-    (unless (custom-theme-p theme)
-      (load-theme theme)))
-  (custom-set-variables `(custom-enabled-themes (quote ,custom-enabled-themes))))
+(setq my-dark-theme       'solarized-dark
+      ;; my-light-theme      'github-modern
+      my-light-theme 'mac-classic
+      )
 
-;; (add-hook 'after-init-hook 'reapply-themes)
-
-(defun light ()
-  "Activate a light color theme."
+(defun toggle-night-color-theme ()
+  "Switch to/from night color scheme"
   (interactive)
-  (setq custom-enabled-themes '(solarized-light))
-  (reapply-themes))
+  (if (eq (frame-parameter (next-frame) 'background-mode) 'light)
+      (progn
+        (load-theme my-dark-theme t)
+        ;; (if *linux*
+        ;;    (do-somthing))
+	)
+    (load-theme my-light-theme t)
+    ;; (if *linux*
+    ;;     (do-somthing))
+    )
+  )
 
-(defun dark ()
-  "Activate a dark color theme."
-  (interactive)
-  (setq custom-enabled-themes '(solarized-dark))
-  (reapply-themes))
+(if (display-graphic-p)
+    (progn
+      (if *linux*
+	  (load-theme my-dark-theme t)
+	(load-theme my-light-theme t))
+      ;; Toggle between light and dark themes with F7
+      (global-set-key (kbd "<f7>") 'toggle-night-color-theme)
+      )
+  )
+
 
 (provide 'init-theme)
-
 ;;; init-theme.el ends here
